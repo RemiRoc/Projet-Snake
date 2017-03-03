@@ -1,0 +1,475 @@
+from tkinter import*
+from tkinter.filedialog import*
+from tkinter.messagebox import*
+from random import randrange
+
+def menu ():
+    global canvas1
+    global Frame1
+    global Frame2
+    global Frame3
+    global Frame4
+    global photo2
+    global photo3
+    global jouer
+    global quitter
+    global option
+    fenetre.title('LE MENU')
+    canvas1 = Canvas(fenetre, width=600, height=600, bg = "White")
+    Frame1 = Frame(canvas1, width = 10, height=10, borderwidth=2, relief=GROOVE, bg="GREEN")
+    Frame1.pack(padx=330,pady=270)
+    Frame2 = Frame(Frame1, width = 10, height=10, borderwidth=2, relief=GROOVE, bg="GREEN")
+    Frame2.pack()
+    Frame3 = Frame(Frame1, width=10, height=10, borderwidth=2, relief=GROOVE, bg="GREEN")
+    Frame3.pack()
+    Frame4 = Frame(Frame1, width=10, height=10, borderwidth=2, relief=GROOVE, bg="GREEN")
+    Frame4.pack()
+    texte = canvas1.create_text(550, 50, text="Snake 2K17", font="Arial 30 roman", fill="BLACK")
+    canvas1.pack()
+    jouer=Button(Frame2, text="PLAY", width=10,command=ouvrirMode, fg="Black")
+    jouer.pack(padx=10, pady=10)
+    option=Button(Frame3, text="OPTION", width=10,command=ouvrirOption, fg="Black")
+    option.pack(padx=10, pady=10)
+    quitter=Button(Frame4, text="QUITTER", width=10, command=afficherMessage, fg="Black")
+    quitter.pack(padx=10, pady=10)
+
+
+    photo2 = PhotoImage(file="Serpent n°3.png")
+    photo3 = PhotoImage(file="Serpent n°8.png")
+
+    canvas1.create_image(-100,0, anchor=NW, image=photo2)
+    canvas1.create_image(525,300, anchor=NW, image=photo3)
+    canvas1.pack()
+
+def retourselection():
+    jouer.destroy()
+    canvas1.destroy()
+    Frame1.destroy()
+    Frame2.destroy()
+    Frame3.destroy()
+    Frame4.destroy()
+    Frame5.destroy()
+    menu()
+
+def retourselection2():
+    retourmenu.destroy()
+    canvas7.destroy()
+    menu()
+
+def retourselection3():
+    retourmenu2.destroy()
+    canvas8.destroy()
+    menu()
+    
+def retourmenu():
+    global score
+    global serpeninitial
+    global repositionnement
+    global scoretext
+    global deplacementx
+    global deplacementy
+    global pommeavaler
+    canvas1.destroy()
+    canvas2.destroy()
+    Frame1.destroy()
+    Frame2.destroy()
+    Frame3.destroy()
+    Frame4.destroy()
+    Frame5.destroy()
+    Frame6.destroy()
+    scorefe.destroy()
+    rejouer.destroy()
+    serpeninitial=[250,250,260,260]
+    repositionnement=1
+    deplacementx=10
+    deplacementy=0
+    scoretext=0
+    score=-10
+    pommeavaler=0
+    menu()
+
+def decompte():
+    global boucle
+    boucle = boucle + 1
+    if boucle == 1:
+        canvas2.create_text(250,250,anchor=CENTER,font="Arial 16",text="Attention !",fill="red")
+    if boucle == 3:
+        canvas2.create_text(250,250,anchor=CENTER,font="Arial 16",text="3",fill="red")
+    if boucle == 4:
+        canvas2.create_text(250,250,anchor=CENTER,font="Arial 16",text="2",fill="red")
+    if boucle == 5:
+        canvas2.create_text(250,250,anchor=CENTER,font="Arial 16",text="1",fill="red")
+    if boucle == 6:
+        canvas2.create_text(250,250,anchor=CENTER,font="Arial 16",text="Go !",fill="red")
+    if boucle < 6:
+        canvas2.after(1000,decompte)
+        
+    
+
+def nouvellepomme():
+    global pommeavaler
+    global x
+    global y
+    global pomme
+    if pommeavaler==1:
+        x=randrange(10,480,10)
+        y=randrange(10,480,10)
+        pomme=canvas2.create_oval(x,y,x+10,y+10,fill="red")
+        pommeavaler=0
+
+def gauche(event):
+    global deplacementx
+    global deplacementy
+    global direction
+    if direction!=2:
+        deplacementx=-10
+        deplacementy=0
+        direction=1
+def droite(event):
+    global deplacementx
+    global deplacementy
+    global direction
+    if direction!=1:
+        deplacementx=10
+        deplacementy=0
+        direction=2
+def haut(event):
+    global deplacementx
+    global deplacementy
+    global direction
+    if direction!=4:
+        deplacementx=0
+        deplacementy=-10
+        direction=3
+def bas(event):
+    global deplacementx
+    global deplacementy
+    global direction
+    if direction!=3:
+        deplacementx=0
+        deplacementy=10
+        direction=4
+
+def scoreaff():
+    global score
+    global scoretext
+    global vitesse
+    global limite
+    global vitlim
+    score = score + 10
+    limite=1
+    vitlim=limite*100
+    scorefe.delete(scoretext)
+    if score>=vitlim:
+        if vitesse!=0:
+            vitesse=vitesse-5
+            limite=limite+1
+    scoretext=scorefe.create_text(32,18,anchor=CENTER,font="Arial 16",text=str(score),fill="green")
+
+def findujeu():
+    global deplacementx
+    global deplacementy
+    if serpeninitial[0]==0:
+        canvas2.create_text(250,250,anchor=CENTER,font="Arial 16",text="Perdu !",fill="red")
+        deplacementx=0
+        deplacementy=0
+    if serpeninitial[1]==0:
+        canvas2.create_text(250,250,anchor=CENTER,font="Arial 16",text="Perdu !",fill="red")
+        deplacementx=0
+        deplacementy=0
+    if serpeninitial[2]==500:
+        canvas2.create_text(250,250,anchor=CENTER,font="Arial 16",text="Perdu !",fill="red")
+        deplacementx=0
+        deplacementy=0
+    if serpeninitial[3]==500:
+        canvas2.create_text(250,250,anchor=CENTER,font="Arial 16",text="Perdu !",fill="red")
+        deplacementx=0
+        deplacementy=0
+
+def deplacementauto():
+    global deplacementx
+    global deplacementy
+    global x
+    global y
+    global pommeavaler
+    global repositionnement
+    global score
+    global vitesse
+
+    decompte()
+    
+    findujeu()
+    
+    if serpeninitial[0]==x and serpeninitial[1]==y:
+        canvas2.delete(pomme)
+        scoreaff()
+        pommeavaler=1
+        coord=len(serpeninitial)
+        x1=serpeninitial[coord-4]
+        x2=serpeninitial[coord-2]
+        y1=serpeninitial[coord-3]
+        y2=serpeninitial[coord-1]
+        x1=x1+10
+        x2=x2+10
+        y2=y2+10
+        serpeninitial.append(x1)
+        serpeninitial.append(x2)
+        serpeninitial.append(y1)
+        serpeninitial.append(y2)
+        serpencoord.append(canvas2.create_rectangle(x1,y1,x2,y2,fill="green"))
+        nouvellepomme()
+        
+    i=4
+    j=1
+    while j<len(serpencoord):
+        serpeninitial[len(serpeninitial)-(i)]=serpeninitial[len(serpeninitial)-(i+4)]
+        serpeninitial[len(serpeninitial)-(i-1)]=serpeninitial[len(serpeninitial)-(i+3)]
+        serpeninitial[len(serpeninitial)-(i-2)]=serpeninitial[len(serpeninitial)-(i+2)]
+        serpeninitial[len(serpeninitial)-(i-3)]=serpeninitial[len(serpeninitial)-(i+1)]
+        i=i+4
+        j=j+1
+    serpeninitial[0]=serpeninitial[0]+deplacementx
+    serpeninitial[1]=serpeninitial[1]+deplacementy
+    serpeninitial[2]=serpeninitial[0]+10
+    serpeninitial[3]=serpeninitial[1]+10
+    i=0
+    j=0
+    if repositionnement!=0:
+        while j<len(serpencoord):
+            canvas2.coords(serpencoord[j],serpeninitial[i],serpeninitial[i+1],serpeninitial[i+2],serpeninitial[i+3])
+            i=i+4
+            j=j+1
+    if repositionnement>0:
+        canvas2.after(vitesse,deplacementauto)
+            
+def jeu():
+    global x
+    global y
+    global coords
+    global canvas2
+    global rectangle
+    global rejouer
+    global xp
+    global yp
+    global pomme
+    global scorefe
+    global serpeninitial
+    global serpencoord
+    global direction
+    global boucle
+    
+    rejouer=Button(fenetre,width=10,text="Menu",command=retourmenu)
+    rejouer.pack(side="bottom",padx=5,pady=5)
+    
+    scorefe=Canvas(fenetre,width=50,height=20,bg="ivory",borderwidth=5,relief=GROOVE)
+    scorefe.pack(side="top",padx=5,pady=5)
+    
+    scoreaff()
+
+    canvas2.bind_all("<Left>",gauche)
+    canvas2.bind_all("<Right>",droite)
+    canvas2.bind_all("<Up>",haut)
+    canvas2.bind_all("<Down>",bas)
+
+    serpencoord=[canvas2.create_rectangle(serpeninitial[0],serpeninitial[1],serpeninitial[2],serpeninitial[3],fill="green")]
+
+    x=randrange(10,480,10)
+    y=randrange(10,480,10)
+    pomme=canvas2.create_oval(x,y,x+10,y+10,fill="red")
+
+    direction=0
+
+    boucle=0
+
+    deplacementauto()
+
+    
+def ouvrirMode():
+    global Frame5
+    global jouerretour
+    global jouer
+    jouer.destroy()
+    jouerretour=Button(Frame2, text="PLAY", width=10,command=retourselection, fg="Black")
+    jouerretour.pack(padx=10, pady=10)
+    Frame5 = Frame(Frame2, width=400, height=400, borderwidth=2, relief=GROOVE, bg="Blue")
+    Frame5.pack(pady=10)
+    normal=Button(Frame5, text="Mode Normal", width=10, command=ouvrirDifficulte, fg="Black")
+    normal.pack(side=LEFT)
+    run=Button(Frame5, text="Mode Run", width=10, command=ouvrirRun, fg="Black")
+    run.pack(side=LEFT)
+    labyrinthe=Button(Frame5, text="Mode Laby", width=10, command=ouvrirLaby, fg="Black")
+    labyrinthe.pack(side=LEFT)
+
+def retourmode():
+    Frame6.destroy()
+    jouerretour2.destroy()
+    ouvrirMode()
+
+def ouvrirDifficulte():
+    global Frame6
+    global HARD
+    global SOFT
+    global EASY
+    global jouerretour2
+    Frame5.destroy()
+    jouerretour.destroy()
+    jouerretour2=Button(Frame2,text="PLAY", width=10, command=retourmode)
+    jouerretour2.pack(padx=10, pady=10)
+    Frame6 = Frame(Frame2, width=10, height=10, borderwidth=2, relief=GROOVE,bg="Blue")
+    Frame6.pack(pady=10)
+    value = StringVar()
+    HARD = Button(Frame6, text="HARD", width=10, command=ouvrirHARD, fg="Black").pack(side=RIGHT)
+    SOFT = Button(Frame6, text="SOFT", width=10, command=ouvrirSOFT, fg="Black").pack(side=RIGHT)
+    EASY = Button(Frame6, text="EASY", width=10, command=ouvrirEASY, fg="Black").pack(side=RIGHT)
+
+    
+def ouvrirEASY():
+    global canvas2
+    #--------------------------------------------------------------------------------------------------------
+    #Description: INTERFACE DU MODE NORMAL DIFFICULTÉ EASY
+    #Entrée:
+    #Sortie:
+    #--------------------------------------------------------------------------------------------------------
+    fenetre.title('DIFFICULTÉ EASY')
+    canvas1.destroy()
+    canvas2 = Canvas(fenetre, width=500, height=500, bg = "WHITE")
+    ligne1 = canvas2.create_line(500,0,0,0, width = 15)
+    ligne2 = canvas2.create_line(0,500,0,0, width = 15)
+    ligne3 = canvas2.create_line(500,500,0,500, width = 8)
+    ligne4 = canvas2.create_line(500,500,500,0, width = 8)
+    canvas2.pack(side=TOP)
+    Button(fenetre, text="Quitter", width=10, command=fenetre.destroy, fg="Black").pack(side=BOTTOM)
+    #JEU
+    global vitesse
+    vitesse=100
+    jeu()
+
+
+def ouvrirSOFT():
+    global canvas2
+    #INTERFACE DU MODE NORMAL DIFFICULTÉ SOFT
+    canvas1.destroy()
+    fenetre.title('DIFFICULTÉ SOFT')
+    canvas2 = Canvas(fenetre, width=500, height=500, bg = "YELLOW")
+    ligne1 = canvas2.create_line(500,0,0,0, width = 15)
+    ligne2 = canvas2.create_line(0,500,0,0, width = 15)
+    ligne3 = canvas2.create_line(500,500,0,500, width = 8)
+    ligne4 = canvas2.create_line(500,500,500,0, width = 8)
+    canvas2.pack(side=TOP)
+    Button(fenetre, text="Quitter", width=10, command=fenetre.destroy, fg="Black").pack(side=BOTTOM)
+    #JEU
+    global vitesse
+    vitesse=50
+    jeu()
+
+
+def ouvrirHARD():
+    #INTERFACE DU MODE NORMAL DIFFICULTÉ HARD
+    global canvas2
+    canvas1.destroy()
+    fenetre.title('DIFFICULTÉ HARD')
+    canvas2 = Canvas(fenetre, width=500, height=500, bg = "ORANGE")
+    ligne1 = canvas2.create_line(500,0,0,0, width = 15)
+    ligne2 = canvas2.create_line(0,500,0,0, width = 15)
+    ligne3 = canvas2.create_line(500,500,0,500, width = 8)
+    ligne4 = canvas2.create_line(500,500,500,0, width = 8)
+    canvas2.pack(side=TOP)
+    Button(fenetre, text="Quitter", width=10, command=fenetre.destroy, fg="Black").pack(side=BOTTOM)
+    #JEU
+    global vitesse
+    vitesse=20
+    jeu()    
+
+
+
+def ouvrirRun():
+    #INTERFACE DU MODE RUN
+    fenetre.title('MODE RUN')
+    canvas1.destroy()
+    canvas5 = Canvas(fenetre, width=500, height=500, bg = "BLUE")
+    ligne1 = canvas5.create_line(500,0,0,0, width = 15)
+    ligne2 = canvas5.create_line(0,500,0,0, width = 15)
+    ligne3 = canvas5.create_line(500,500,0,500, width = 8)
+    ligne4 = canvas5.create_line(500,500,500,0, width = 8)
+    canvas5.pack(side=TOP)
+    Button(fenetre, text="Quitter", width=10, command=fenetre.destroy, fg="Black").pack(side=BOTTOM)
+
+
+    
+def ouvrirLaby():
+    #INTERFACE DU MODE LABY
+    canvas1.destroy()
+    fenetre.title('MODE LABY')
+    canvas6 = Canvas(fenetre, width=500, height=500, bg = "PURPLE")
+    ligne1 = canvas6.create_line(500,0,0,0, width = 15)
+    ligne2 = canvas6.create_line(0,500,0,0, width = 15)
+    ligne3 = canvas6.create_line(500,500,0,500, width = 8)
+    ligne4 = canvas6.create_line(500,500,500,0, width = 8)
+    canvas6.pack(side=TOP)
+    Button(fenetre, text="Quitter", width=10, command=fenetre.destroy, fg="Black").pack(side=BOTTOM)
+
+
+
+def ouvrirOption():
+    Frame6 = Frame(Frame3, width=400, height=400, borderwidth=2, relief=GROOVE, bg="Blue")
+    Frame6.pack(side=BOTTOM, pady=10)
+    Button(Frame6, text="Musique", width=10, command=ouvrirMusique, fg="Black").pack(side=LEFT)
+    Button(Frame6, text="Contrôles", width=10, command=ouvrirControles, fg="Black").pack(side=LEFT)
+
+def ouvrirMusique():
+    global retourmenu
+    global canvas7
+    #INTERFACE DES PARAMETRE DE LA MUSIQUE
+    fenetre.title('PARAMETRE DE LA MUSIQUE')
+    canvas1.destroy()
+    canvas7 = Canvas(fenetre, width = 400, height=400, bg="Blue")
+    bouton1 = Checkbutton(canvas7, text="Pas de musique")
+    bouton1.pack(side=TOP, padx=100, pady=5)
+    bouton2 = Checkbutton(canvas7, text="Musique 1").pack(side=TOP, pady=5)
+    bouton3 = Checkbutton(canvas7, text="Musique 2").pack(side=TOP, pady=5)
+    value = DoubleVar()
+    scale = Scale(canvas7, variable=value)
+    scale.pack(padx=50, pady=50)
+    texte3 = canvas7.create_text(150, 125, text="Volume du son", font="Arial 12 roman", fill="BLACK")
+    retourmenu=Button(canvas7, text="Menu", width=10, command=retourselection2, fg="Black")
+    retourmenu.pack(padx=10, pady=10)
+    canvas7.pack()
+
+def ouvrirControles():
+    global retourmenu2
+    global canvas8
+    #INTERFACE DES PARAMETRE DES CONTRÔLES
+    fenetre.title('PARAMETRE DES CONTRÔLES')
+    canvas1.destroy()
+    canvas8 = Canvas(fenetre, width=400, height=400, bg="Purple")
+    texte2 = canvas8.create_text(225, 50, text="Choisir les contrôles pour jouer", font="Arial 20 roman", fill="BLACK")
+    value = StringVar() 
+    bouton1 = Radiobutton(canvas8, text="Contrôles avec les flèches directionnelles", variable=value, value=1)
+    bouton2 = Radiobutton(canvas8, text="Contrôles avec les touches Z/S/Q/D", variable=value, value=2)
+    bouton1.pack(padx=100, pady=100)
+    bouton2.pack(padx=50, pady=50)
+    retourmenu2=Button(canvas8, text="Menu", width=10, command=retourselection3, fg="Black")
+    retourmenu2.pack(padx=10, pady=10)
+    canvas8.pack()
+
+def afficherMessage():
+    if askyesno('ATTENTION', 'Êtes-vous sûr de vouloir faire ça?'):
+        fenetre.destroy()
+    
+        
+
+#PROGRAMME DE L'INTERFACE DU MENU
+fenetre = Tk()
+fenetre.title('LE MENU')
+
+score=-10
+scoretext=0
+serpeninitial=[250,250,260,260]
+
+pommeavaler=0
+repositionnement=1
+
+deplacementx=10
+deplacementy=0
+
+menu()
