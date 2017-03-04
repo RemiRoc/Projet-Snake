@@ -150,9 +150,10 @@ def tempsrestant():
     global scoretext
     global choixmode
     global boucle
+    global fin
     boucle = 0
     if choixmode == 1:    
-        temps = temps - 1
+        temps = temps - fin
         scorefe.delete(scoretext)
         scoretext=scorefe.create_text(56,18,anchor=CENTER,font="Arial 16",text=str(temps),fill="green")
     
@@ -175,6 +176,7 @@ def scoreaff():
 def findujeu():
     global deplacementx
     global deplacementy
+    global fin
     if serpeninitial[0]==0:
         canvas2.create_text(250,250,anchor=CENTER,font="Arial 16",text="Perdu !",fill="red")
         deplacementx=0
@@ -191,6 +193,11 @@ def findujeu():
         canvas2.create_text(250,250,anchor=CENTER,font="Arial 16",text="Perdu !",fill="red")
         deplacementx=0
         deplacementy=0
+    if temps == 0:
+        canvas2.create_text(250,250,anchor=CENTER,font="Arial 16",text="Perdu !",fill="red")
+        deplacementx=0
+        deplacementy=0
+        fin = 0
 
 def deplacementauto():
     global deplacementx
@@ -579,9 +586,11 @@ fenetre.title('LE MENU')
 
 choixmode = 0
 boucle = 0
+fin = 1
 
 score=-10
 scoretext=0
+
 serpeninitial=[250,250,260,260]
 
 pommeavaler=0
