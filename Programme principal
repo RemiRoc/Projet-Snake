@@ -60,6 +60,16 @@ def retourselection3():
     retourmenu2.destroy()
     canvas8.destroy()
     menu()
+
+def retourselection4():
+    retourmenu3.destroy()
+    canvas1.destroy()
+    Frame1.destroy()
+    Frame2.destroy()
+    Frame3.destroy()
+    Frame4.destroy()
+    Frame6.destroy()
+    menu()
     
 def retourmenu():
     global score
@@ -69,6 +79,7 @@ def retourmenu():
     global deplacementx
     global deplacementy
     global pommeavaler
+    global quitter
     canvas1.destroy()
     canvas2.destroy()
     Frame1.destroy()
@@ -79,6 +90,7 @@ def retourmenu():
     Frame6.destroy()
     scorefe.destroy()
     rejouer.destroy()
+    quitter.destroy()
     serpeninitial=[250,250,260,260]
     repositionnement=1
     deplacementx=10
@@ -86,24 +98,7 @@ def retourmenu():
     scoretext=0
     score=-10
     pommeavaler=0
-    menu()
-
-def decompte():
-    global boucle
-    boucle = boucle + 1
-    if boucle == 1:
-        canvas2.create_text(250,250,anchor=CENTER,font="Arial 16",text="Attention !",fill="red")
-    if boucle == 3:
-        canvas2.create_text(250,250,anchor=CENTER,font="Arial 16",text="3",fill="red")
-    if boucle == 4:
-        canvas2.create_text(250,250,anchor=CENTER,font="Arial 16",text="2",fill="red")
-    if boucle == 5:
-        canvas2.create_text(250,250,anchor=CENTER,font="Arial 16",text="1",fill="red")
-    if boucle == 6:
-        canvas2.create_text(250,250,anchor=CENTER,font="Arial 16",text="Go !",fill="red")
-    if boucle < 6:
-        canvas2.after(1000,decompte)
-        
+    menu()      
     
 
 def nouvellepomme():
@@ -150,21 +145,32 @@ def bas(event):
         deplacementy=10
         direction=4
 
+def tempsrestant():
+    global temps
+    global scoretext
+    global choixmode
+    global boucle
+    boucle = 0
+    if choixmode == 1:    
+        temps = temps - 1
+        scorefe.delete(scoretext)
+        scoretext=scorefe.create_text(56,18,anchor=CENTER,font="Arial 16",text=str(temps),fill="green")
+    
+
 def scoreaff():
     global score
     global scoretext
-    global vitesse
-    global limite
-    global vitlim
-    score = score + 10
-    limite=1
-    vitlim=limite*100
-    scorefe.delete(scoretext)
-    if score>=vitlim:
-        if vitesse!=0:
-            vitesse=vitesse-5
-            limite=limite+1
-    scoretext=scorefe.create_text(32,18,anchor=CENTER,font="Arial 16",text=str(score),fill="green")
+    global choixmode
+    global temps
+    global tempspomme
+    if choixmode == 0:
+        score = score + 10
+        scorefe.delete(scoretext)
+        scoretext=scorefe.create_text(56,18,anchor=CENTER,font="Arial 16",text=str(score),fill="green")
+    if choixmode == 1:
+        temps = temps + tempspomme
+        scorefe.delete(scoretext)
+        scoretext=scorefe.create_text(56,18,anchor=CENTER,font="Arial 16",text=str(temps),fill="green")
 
 def findujeu():
     global deplacementx
@@ -195,8 +201,10 @@ def deplacementauto():
     global repositionnement
     global score
     global vitesse
+    global boucle
 
-    decompte()
+    if boucle == 15:
+        tempsrestant()
     
     findujeu()
     
@@ -241,6 +249,7 @@ def deplacementauto():
             j=j+1
     if repositionnement>0:
         canvas2.after(vitesse,deplacementauto)
+        boucle = boucle + 1
             
 def jeu():
     global x
@@ -257,11 +266,18 @@ def jeu():
     global serpencoord
     global direction
     global boucle
+    global textedebut
+    global temps
+    global tempspomme
+    global choixmode
     
     rejouer=Button(fenetre,width=10,text="Menu",command=retourmenu)
     rejouer.pack(side="bottom",padx=5,pady=5)
+
+    if choixmode == 1:
+        temps = 30 - tempspomme
     
-    scorefe=Canvas(fenetre,width=50,height=20,bg="ivory",borderwidth=5,relief=GROOVE)
+    scorefe=Canvas(fenetre,width=100,height=20,bg="ivory",borderwidth=5,relief=GROOVE)
     scorefe.pack(side="top",padx=5,pady=5)
     
     scoreaff()
@@ -295,7 +311,7 @@ def ouvrirMode():
     Frame5.pack(pady=10)
     normal=Button(Frame5, text="Mode Normal", width=10, command=ouvrirDifficulte, fg="Black")
     normal.pack(side=LEFT)
-    run=Button(Frame5, text="Mode Run", width=10, command=ouvrirRun, fg="Black")
+    run=Button(Frame5, text="Mode Run", width=10, command=ouvrirDifficulterun, fg="Black")
     run.pack(side=LEFT)
     labyrinthe=Button(Frame5, text="Mode Laby", width=10, command=ouvrirLaby, fg="Black")
     labyrinthe.pack(side=LEFT)
@@ -311,12 +327,14 @@ def ouvrirDifficulte():
     global SOFT
     global EASY
     global jouerretour2
+    global choixmode
     Frame5.destroy()
     jouerretour.destroy()
     jouerretour2=Button(Frame2,text="PLAY", width=10, command=retourmode)
     jouerretour2.pack(padx=10, pady=10)
     Frame6 = Frame(Frame2, width=10, height=10, borderwidth=2, relief=GROOVE,bg="Blue")
     Frame6.pack(pady=10)
+    choixmode = 0
     value = StringVar()
     HARD = Button(Frame6, text="HARD", width=10, command=ouvrirHARD, fg="Black").pack(side=RIGHT)
     SOFT = Button(Frame6, text="SOFT", width=10, command=ouvrirSOFT, fg="Black").pack(side=RIGHT)
@@ -325,6 +343,8 @@ def ouvrirDifficulte():
     
 def ouvrirEASY():
     global canvas2
+    global quitter
+    global vitesse
     #--------------------------------------------------------------------------------------------------------
     #Description: INTERFACE DU MODE NORMAL DIFFICULTÉ EASY
     #Entrée:
@@ -338,15 +358,17 @@ def ouvrirEASY():
     ligne3 = canvas2.create_line(500,500,0,500, width = 8)
     ligne4 = canvas2.create_line(500,500,500,0, width = 8)
     canvas2.pack(side=TOP)
-    Button(fenetre, text="Quitter", width=10, command=fenetre.destroy, fg="Black").pack(side=BOTTOM)
+    quitter=Button(fenetre, text="Quitter", width=10, command=fenetre.destroy, fg="Black")
+    quitter.pack(side=BOTTOM)
     #JEU
-    global vitesse
     vitesse=100
     jeu()
 
 
 def ouvrirSOFT():
     global canvas2
+    global quitter
+    global vitesse
     #INTERFACE DU MODE NORMAL DIFFICULTÉ SOFT
     canvas1.destroy()
     fenetre.title('DIFFICULTÉ SOFT')
@@ -356,9 +378,9 @@ def ouvrirSOFT():
     ligne3 = canvas2.create_line(500,500,0,500, width = 8)
     ligne4 = canvas2.create_line(500,500,500,0, width = 8)
     canvas2.pack(side=TOP)
-    Button(fenetre, text="Quitter", width=10, command=fenetre.destroy, fg="Black").pack(side=BOTTOM)
+    quitter=Button(fenetre, text="Quitter", width=10, command=fenetre.destroy, fg="Black")
+    quitter.pack(side=BOTTOM)
     #JEU
-    global vitesse
     vitesse=50
     jeu()
 
@@ -366,6 +388,8 @@ def ouvrirSOFT():
 def ouvrirHARD():
     #INTERFACE DU MODE NORMAL DIFFICULTÉ HARD
     global canvas2
+    global quitter
+    global vitesse
     canvas1.destroy()
     fenetre.title('DIFFICULTÉ HARD')
     canvas2 = Canvas(fenetre, width=500, height=500, bg = "ORANGE")
@@ -374,9 +398,9 @@ def ouvrirHARD():
     ligne3 = canvas2.create_line(500,500,0,500, width = 8)
     ligne4 = canvas2.create_line(500,500,500,0, width = 8)
     canvas2.pack(side=TOP)
-    Button(fenetre, text="Quitter", width=10, command=fenetre.destroy, fg="Black").pack(side=BOTTOM)
+    quitter=Button(fenetre, text="Quitter", width=10, command=fenetre.destroy, fg="Black")
+    quitter.pack(side=BOTTOM)
     #JEU
-    global vitesse
     vitesse=20
     jeu()    
 
@@ -392,29 +416,120 @@ def ouvrirRun():
     ligne3 = canvas5.create_line(500,500,0,500, width = 8)
     ligne4 = canvas5.create_line(500,500,500,0, width = 8)
     canvas5.pack(side=TOP)
-    Button(fenetre, text="Quitter", width=10, command=fenetre.destroy, fg="Black").pack(side=BOTTOM)
+    Button(fenetre, text="Quitter", width=10, command=fenetre.destroy, fg="Black")
+    quitter.pack(side=BOTTOM)
+
+def ouvrirDifficulterun():
+    global Frame6
+    global HARD
+    global SOFT
+    global EASY
+    global jouerretour2
+    global choixmode
+    Frame5.destroy()
+    jouerretour.destroy()
+    jouerretour2=Button(Frame2,text="PLAY", width=10, command=retourmode)
+    jouerretour2.pack(padx=10, pady=10)
+    Frame6 = Frame(Frame2, width=10, height=10, borderwidth=2, relief=GROOVE,bg="Blue")
+    Frame6.pack(pady=10)
+    choixmode=1
+    value = StringVar()
+    HARD = Button(Frame6, text="HARD", width=10, command=ouvrirHARDrun, fg="Black").pack(side=RIGHT)
+    SOFT = Button(Frame6, text="SOFT", width=10, command=ouvrirSOFTrun, fg="Black").pack(side=RIGHT)
+    EASY = Button(Frame6, text="EASY", width=10, command=ouvrirEASYrun, fg="Black").pack(side=RIGHT)
+
+def ouvrirEASYrun():
+    #INTERFACE DU MODE RUN DIFFICULTE EASY
+    global quitter
+    global vitesse
+    global canvas2
+    global tempspomme
+    fenetre.title('MODE RUN')
+    canvas1.destroy()
+    canvas2 = Canvas(fenetre, width=500, height=500, bg = "WHITE")
+    ligne1 = canvas2.create_line(500,0,0,0, width = 15)
+    ligne2 = canvas2.create_line(0,500,0,0, width = 15)
+    ligne3 = canvas2.create_line(500,500,0,500, width = 8)
+    ligne4 = canvas2.create_line(500,500,500,0, width = 8)
+    canvas2.pack(side=TOP)
+    quitter=Button(fenetre, text="Quitter", width=10, command=fenetre.destroy, fg="Black")
+    quitter.pack(side=BOTTOM)
+    vitesse = 50
+    tempspomme = 6
+    jeu()
 
 
+def ouvrirSOFTrun():
+    #INTERFACE DU MODE RUN DIFFICULTE SOFT
+    global quitter
+    global vitesse
+    global canvas2
+    global tempspomme
+    fenetre.title('MODE RUN')
+    canvas1.destroy()
+    canvas2 = Canvas(fenetre, width=500, height=500, bg = "YELLOW")
+    ligne1 = canvas2.create_line(500,0,0,0, width = 15)
+    ligne2 = canvas2.create_line(0,500,0,0, width = 15)
+    ligne3 = canvas2.create_line(500,500,0,500, width = 8)
+    ligne4 = canvas2.create_line(500,500,500,0, width = 8)
+    canvas2.pack(side=TOP)
+    quitter=Button(fenetre, text="Quitter", width=10, command=fenetre.destroy, fg="Black")
+    quitter.pack(side=BOTTOM)
+    vitesse = 50
+    tempspomme = 4
+    jeu()
+
+def ouvrirHARDrun():
+    #INTERFACE DU MODE RUN DIFFICULTE HARD
+    global quitter
+    global vitesse
+    global canvas2
+    global tempspomme
+    fenetre.title('MODE RUN')
+    canvas1.destroy()
+    canvas2 = Canvas(fenetre, width=500, height=500, bg = "ORANGE")
+    ligne1 = canvas2.create_line(500,0,0,0, width = 15)
+    ligne2 = canvas2.create_line(0,500,0,0, width = 15)
+    ligne3 = canvas2.create_line(500,500,0,500, width = 8)
+    ligne4 = canvas2.create_line(500,500,500,0, width = 8)
+    canvas2.pack(side=TOP)
+    quitter=Button(fenetre, text="Quitter", width=10, command=fenetre.destroy, fg="Black")
+    quitter.pack(side=BOTTOM)
+    vitesse = 50
+    tempspomme = 2
+    jeu()
     
 def ouvrirLaby():
     #INTERFACE DU MODE LABY
+    global quitter
+    global canvas2
     canvas1.destroy()
     fenetre.title('MODE LABY')
-    canvas6 = Canvas(fenetre, width=500, height=500, bg = "PURPLE")
-    ligne1 = canvas6.create_line(500,0,0,0, width = 15)
-    ligne2 = canvas6.create_line(0,500,0,0, width = 15)
-    ligne3 = canvas6.create_line(500,500,0,500, width = 8)
-    ligne4 = canvas6.create_line(500,500,500,0, width = 8)
-    canvas6.pack(side=TOP)
-    Button(fenetre, text="Quitter", width=10, command=fenetre.destroy, fg="Black").pack(side=BOTTOM)
+    canvas2 = Canvas(fenetre, width=500, height=500, bg = "PURPLE")
+    ligne1 = canvas2.create_line(500,0,0,0, width = 15)
+    ligne2 = canvas2.create_line(0,500,0,0, width = 15)
+    ligne3 = canvas2.create_line(500,500,0,500, width = 8)
+    ligne4 = canvas2.create_line(500,500,500,0, width = 8)
+    canvas2.pack(side=TOP)
+    quitter=Button(fenetre, text="Quitter", width=10, command=fenetre.destroy, fg="Black")
+    quitter.pack(side=BOTTOM)
 
 
 
 def ouvrirOption():
+    global musique
+    global controle
+    global retourmenu3
+    global Frame6
+    option.destroy()
+    retourmenu3=Button(Frame3, text="OPTION", width=10,command=retourselection4, fg="Black")
+    retourmenu3.pack(padx=10, pady=10)
     Frame6 = Frame(Frame3, width=400, height=400, borderwidth=2, relief=GROOVE, bg="Blue")
     Frame6.pack(side=BOTTOM, pady=10)
-    Button(Frame6, text="Musique", width=10, command=ouvrirMusique, fg="Black").pack(side=LEFT)
-    Button(Frame6, text="Contrôles", width=10, command=ouvrirControles, fg="Black").pack(side=LEFT)
+    musique=Button(Frame6, text="Musique", width=10, command=ouvrirMusique, fg="Black")
+    musique.pack(side=LEFT)
+    controle=Button(Frame6, text="Contrôles", width=10, command=ouvrirControles, fg="Black")
+    controle.pack(side=LEFT)
 
 def ouvrirMusique():
     global retourmenu
@@ -461,6 +576,9 @@ def afficherMessage():
 #PROGRAMME DE L'INTERFACE DU MENU
 fenetre = Tk()
 fenetre.title('LE MENU')
+
+choixmode = 0
+boucle = 0
 
 score=-10
 scoretext=0
