@@ -4,6 +4,12 @@ from tkinter.messagebox import*
 from random import randrange
 
 def menu ():
+    #--------------------------------------------------------------------------------------------------------
+    #Description: INTERFACE DU MENU
+    #Entrée: Cette fonction a ete appeller pour afficher le menu du jeu
+    #Sortie: Apelle les fonctions ouvrirMode, ouvrirOption et afficherMessage
+    #--------------------------------------------------------------------------------------------------------
+
     global canvas1
     global Frame1
     global Frame2
@@ -168,6 +174,66 @@ def nouvellepomme():
         y=randrange(10,480,10)
         pomme=canvas2.create_oval(x,y,x+10,y+10,fill="red")
         pommeavaler=0
+        if x == 100 and y == 100:
+            pomme.delete()
+            nouvellepomme()
+        if x == 200 and y == 200:
+            pomme.delete()
+            nouvellepomme()
+        if x == 100 and y == 150:
+            pomme.delete()
+            nouvellepomme()
+        if x == 100 and y == 400:
+            pomme.delete()
+            nouvellepomme()
+        if x == 200 and y == 300:
+            pomme.delete()
+            nouvellepomme()
+        if x == 50 and y == 500:
+            pomme.delete()
+            nouvellepomme()
+        if x == 300 and y == 500:
+            pomme.delete()
+            nouvellepomme()
+        if x == 175 and y == 450:
+            pomme.delete()
+            nouvellepomme()
+        if x == 450 and y == 500:
+            pomme.delete()
+            nouvellepomme()
+        if x == 275 and y == 325:
+            pomme.delete()
+            nouvellepomme()
+        if x == 375 and y == 250:
+            pomme.delete()
+            nouvellepomme()
+        if x == 0 and y == 50:
+            pomme.delete()
+            nouvellepomme()
+        if x == 450 and y == 0:
+            pomme.delete()
+            nouvellepomme()
+        if x == 230 and y == 225:
+            pomme.delete()
+            nouvellepomme()
+        if x == 230 and y == 400:
+            pomme.delete()
+            nouvellepomme()
+        if x == 150 and y == 300:
+            pomme.delete()
+            nouvellepomme()
+        if x == 250 and y == 0:
+            pomme.delete()
+            nouvellepomme()
+        if x == 275 and y == 150:
+            pomme.delete()
+            nouvellepomme()
+        if x == 425 and y == 250:
+            pomme.delete()
+            nouvellepomme()
+        if x == 250 and y == 50:
+            pomme.delete()
+            nouvellepomme()
 
 
 def gauche(event):
@@ -299,6 +365,67 @@ def pommeMagique():
     xPM=randrange(10,480,10)
     yPM=randrange(10,480,10)
     pommeM=canvas2.create_oval(xPM,yPM,xPM+10,yPM+10,fill="yellow")
+    if x == 100 and y == 100:
+        pommeM.delete()
+        pommeMagique()
+    if x == 200 and y == 200:
+        pommeM.delete()
+        pommeMagique()
+    if x == 100 and y == 150:
+        pommeM.delete()
+        pommeMagique()
+    if x == 100 and y == 400:
+        pommeM.delete()
+        pommeMagique()
+    if x == 200 and y == 300:
+        pommeM.delete()
+        pommeMagique()
+    if x == 50 and y == 500:
+        pommeM.delete()
+        pommeMagique()
+    if x == 300 and y == 500:
+        pommeM.delete()
+        pommeMagique()
+    if x == 175 and y == 450:
+        pommeM.delete()
+        pommeMagique()
+    if x == 450 and y == 500:
+        pommeM.delete()
+        pommeMagique()
+    if x == 275 and y == 325:
+        pommeM.delete()
+        pommeMagique()
+    if x == 375 and y == 250:
+        pommeM.delete()
+        pommeMagique()
+    if x == 0 and y == 50:
+        pommeM.delete()
+        pommeMagique()
+    if x == 450 and y == 0:
+        pommeM.delete()
+        pommeMagique()
+    if x == 230 and y == 225:
+        pommeM.delete()
+        pommeMagique()
+    if x == 230 and y == 400:
+        pommeM.delete()
+        pommeMagique()
+    if x == 150 and y == 300:
+        pommeM.delete()
+        pommeMagique()
+    if x == 250 and y == 0:
+        pommeM.delete()
+        pommeMagique()
+    if x == 275 and y == 150:
+        pommeM.delete()
+        pommeMagique()
+    if x == 425 and y == 250:
+        pommeM.delete()
+        pommeMagique()
+    if x == 250 and y == 50:
+        pommeM.delete()
+        pommeMagique()
+
     
     
 
@@ -328,6 +455,10 @@ def findujeu():
             deplacementx=0
             deplacementy=0
             fin = 0
+    if serpeninitial==serpencoord:
+        canvas2.create_text(250,250,anchor=CENTER,font="Arial 16",text="Perdu !",fill="red") #TEST MORDRE LA QUEUE
+        deplacementx=0
+        deplacementy=0
     
 
 def findujeuLaby():
@@ -505,6 +636,11 @@ def deplacementauto():
     i=4
     j=1
     while j<len(serpencoord):
+        if j != 1:
+            if serpeninitial[0] == serpeninitial[len(serpeninitial)-(i)] and serpeninitial[2] == serpeninitial[len(serpeninitial)-(i-2)] and serpeninitial[1] == serpeninitial[len(serpeninitial)-(i-1)] and serpeninitial[3] == serpeninitial[len(serpeninitial)-(i-3)]:
+               canvas2.create_text(250,250,anchor=CENTER,font="Arial 16",text="Perdu !",fill="red")
+               deplacementx=0
+               deplacementy=0
         serpeninitial[len(serpeninitial)-(i)]=serpeninitial[len(serpeninitial)-(i+4)]
         serpeninitial[len(serpeninitial)-(i-1)]=serpeninitial[len(serpeninitial)-(i+3)]
         serpeninitial[len(serpeninitial)-(i-2)]=serpeninitial[len(serpeninitial)-(i+2)]
@@ -611,6 +747,12 @@ def jeu():
 
     
 def ouvrirMode():
+    #--------------------------------------------------------------------------------------------------------
+    #Description: INTERFACE DES MODES
+    #Entrée: Affiche les differents mode de jeu
+    #Sortie: Appelle les fonctions retourselection, ouvrirDifficulte, ouvrirDifficulterun et ouvrirLaby
+    #--------------------------------------------------------------------------------------------------------
+
     global Frame5
     global jouerretour
     global jouer
@@ -633,6 +775,12 @@ def retourmode():
 
 
 def ouvrirDifficulte():
+    #--------------------------------------------------------------------------------------------------------
+    #Description: INTERFACE DES DIFFICULTES
+    #Entrée: Affiche les difficultes des differents mode de jeu
+    #Sortie: Appelle les fonctions retourmode, ouvrirHARD, ouvrirSOFT et ouvrirEASY
+    #--------------------------------------------------------------------------------------------------------
+
     global Frame6
     global HARD
     global SOFT
@@ -656,8 +804,8 @@ def ouvrirEASY():
     global quitter
     #--------------------------------------------------------------------------------------------------------
     #Description: INTERFACE DU MODE NORMAL DIFFICULTÉ EASY
-    #Entrée:
-    #Sortie:
+    #Entrée: Ferme le canvas du menu et ouvre un nouveau canvas avec le jeu 
+    #Sortie: Lance le jeu en mode normal EASY
     #--------------------------------------------------------------------------------------------------------
     fenetre.title('DIFFICULTÉ EASY')
     canvas1.destroy()
@@ -677,7 +825,12 @@ def ouvrirEASY():
 def ouvrirSOFT():
     global canvas2
     global quitter
-    #INTERFACE DU MODE NORMAL DIFFICULTÉ SOFT
+    #--------------------------------------------------------------------------------------------------------
+    #Description: INTERFACE DU MODE NORMAL DIFFICULTÉ SOFT
+    #Entrée: Ferme le canvas du menu et ouvre un nouveau canvas avec le jeu
+    #Sortie: Lance le jeu en mode normal SOFT
+    #--------------------------------------------------------------------------------------------------------
+
     canvas1.destroy()
     fenetre.title('DIFFICULTÉ SOFT')
     canvas2 = Canvas(fenetre, width=500, height=500, bg = "YELLOW")
@@ -694,7 +847,12 @@ def ouvrirSOFT():
 
 
 def ouvrirHARD():
-    #INTERFACE DU MODE NORMAL DIFFICULTÉ HARD
+    #--------------------------------------------------------------------------------------------------------
+    #Description: INTERFACE DU MODE NORMAL DIFFICULTÉ HARD
+    #Entrée: Ferme le canavs du menu et ouvre un nouveau canvas avec le jeu
+    #Sortie: Lance le jeu en mode normal HARD
+    #--------------------------------------------------------------------------------------------------------
+
     global canvas2
     global quitter
     canvas1.destroy()
@@ -713,6 +871,12 @@ def ouvrirHARD():
 
 
 def ouvrirDifficulterun():
+    #--------------------------------------------------------------------------------------------------------
+    #Description: INTERFACE DES DIFFICULTES DU MODE RUN
+    #Entrée: Affiche les difficultes du mode run 
+    #Sortie: Appelle les fonctions retourmode, ouvrirHARDrun, ouvrirSOFTrun et ouvrirEASYrun
+    #--------------------------------------------------------------------------------------------------------
+
     global Frame6
     global HARD
     global SOFT
@@ -733,7 +897,12 @@ def ouvrirDifficulterun():
 
 
 def ouvrirEASYrun():
-    #INTERFACE DU MODE RUN DIFFICULTE EASY
+    #--------------------------------------------------------------------------------------------------------
+    #Description: INTERFACE DU MODE RUN DIFFICULTÉ EASY
+    #Entrée: Ferme le canvas du menu et ouvre un nouveau canvas avec le jeu
+    #Sortie: Lance le jeu en mode run EASY
+    #--------------------------------------------------------------------------------------------------------
+
     global quitter
     global vitesse
     global canvas2
@@ -754,7 +923,12 @@ def ouvrirEASYrun():
 
 
 def ouvrirSOFTrun():
-    #INTERFACE DU MODE RUN DIFFICULTE SOFT
+    #--------------------------------------------------------------------------------------------------------
+    #Description: INTERFACE DU MODE RUN DIFFICULTÉ SOFT
+    #Entrée: Ferme le canvas du menu et ouvre un nouveau canvas avec le jeu
+    #Sortie: Lance le jeu en mode run SOFT
+    #--------------------------------------------------------------------------------------------------------
+
     global quitter
     global vitesse
     global canvas2
@@ -774,7 +948,12 @@ def ouvrirSOFTrun():
     jeu()
 
 def ouvrirHARDrun():
-    #INTERFACE DU MODE RUN DIFFICULTE HARD
+    #--------------------------------------------------------------------------------------------------------
+    #Description: INTERFACE DU MODE RUN DIFFICULTÉ HARD
+    #Entrée: Ferme le canvas du menu et ouvre un nouveau canvas avec le jeu
+    #Sortie: Lance le jeu en mode run HARD
+    #--------------------------------------------------------------------------------------------------------
+
     global quitter
     global vitesse
     global canvas2
@@ -794,7 +973,12 @@ def ouvrirHARDrun():
     jeu()
     
 def ouvrirLaby():
-    #INTERFACE DU MODE LABY
+    #--------------------------------------------------------------------------------------------------------
+    #Description: INTERFACE DU MODE LABY
+    #Entrée: Ferme le canvas du menu et ouvre un nouveau canvas avec le jeu
+    #Sortie: Lance le jeu en mode Laby
+    #--------------------------------------------------------------------------------------------------------
+
     global canvas2
     global choixmode
     global quitter
@@ -825,6 +1009,11 @@ def retouroption():
     menu()
 
 def ouvrirOption():
+    #--------------------------------------------------------------------------------------------------------
+    #Description: INTERFACE DES OPTIONS
+    #Entrée: Affiche les differentes options
+    #Sortie: Appelle les fonctions ouvrirMusique et ouvrirControles
+    #--------------------------------------------------------------------------------------------------------
     global Frame6
     global option
     global optionretour
@@ -839,7 +1028,11 @@ def ouvrirOption():
 def ouvrirMusique():
     global retourmenu
     global canvas7
-    #INTERFACE DES PARAMETRE DE LA MUSIQUE
+    #--------------------------------------------------------------------------------------------------------
+    #Description: INTERFACE DE L OPTION MUSIQUE
+    #Entrée: Ouvre un autre canvas 
+    #Sortie: Appelle la fonction retourselection2
+    #--------------------------------------------------------------------------------------------------------
     fenetre.title('PARAMETRE DE LA MUSIQUE')
     canvas1.destroy()
     canvas7 = Canvas(fenetre, width = 400, height=400, bg="Blue")
@@ -859,7 +1052,11 @@ def ouvrirControles():
     global retourmenu2
     global canvas8
 
-    #INTERFACE DES PARAMETRE DES CONTRÔLES
+    #--------------------------------------------------------------------------------------------------------
+    #Description: INTERFACE DE L OPTION CONTROLES
+    #Entrée: Ouvre un autre canvas
+    #Sortie: Appelle les fonctions choixdestouches1, choixdestouches2 et retourselection3
+    #--------------------------------------------------------------------------------------------------------
     fenetre.title('PARAMETRE DES CONTRÔLES')
     canvas1.destroy()
     canvas8 = Canvas(fenetre, width=400, height=400, bg="Purple")
@@ -902,6 +1099,3 @@ deplacementy=0
 minuteur = 0
 
 menu()
-
-
-
