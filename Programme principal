@@ -1048,6 +1048,7 @@ def ouvrirMusique():
     retourmenu.pack(padx=10, pady=10)
     canvas7.pack()
 
+
 def ouvrirControles():
     global retourmenu2
     global canvas8
@@ -1099,3 +1100,6 @@ deplacementy=0
 minuteur = 0
 
 menu()
+
+
+
