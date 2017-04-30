@@ -115,8 +115,6 @@ def retourmenu():
     pommeavaler=0
     menu()
 
-    
-
 def decompte():
     global minuteur
     global mot1
@@ -125,43 +123,38 @@ def decompte():
     global mot4
     global mot5
     global deplacementx
-    global deplacementy
-    
+    global deplacementy    
+
     minuteur = minuteur + 1
+
     if minuteur == 1:
         mot1=canvas2.create_text(250,250,anchor=CENTER,font="Arial 16",text="Attention !",fill="Black")
-        
-    if minuteur == 3:
-        mot2=canvas2.create_text(250,270,anchor=CENTER,font="Arial 16",text="3",fill="blue")
-          
-    if minuteur == 4:
-        mot3=canvas2.create_text(250,290,anchor=CENTER,font="Arial 16",text="2",fill="white")
-        
-    if minuteur == 5:
-        mot4=canvas2.create_text(250,310,anchor=CENTER,font="Arial 16",text="1",fill="red")
-        
-    if minuteur == 6:
-        mot5=canvas2.create_text(250,330,anchor=CENTER,font="Arial 16",text="Go !",fill="Black")
-        
-    if minuteur < 6:
+
+    if minuteur == 10:
+        canvas2.delete(mot1)
+        mot2=canvas2.create_text(250,250,anchor=CENTER,font="Arial 16",text="3",fill="Black")
+
+    if minuteur == 20:
+        canvas2.delete(mot2)
+        mot3=canvas2.create_text(250,250,anchor=CENTER,font="Arial 16",text="2",fill="Black")
+
+    if minuteur == 30:
+        canvas2.delete(mot3)
+        mot4=canvas2.create_text(250,250,anchor=CENTER,font="Arial 16",text="1",fill="Black")
+
+    if minuteur == 40:
+        canvas2.delete(mot4)
+        mot5=canvas2.create_text(250,250,anchor=CENTER,font="Arial 16",text="Go !",fill="Black")
+
+    if minuteur == 50:
+        canvas2.delete(mot5)
+
+    if minuteur < 50:
         canvas2.after(1000,decompte)
 
-    if minuteur == 7:
-        canvas2.after(1000,detruiremot)
-   
-    if minuteur == 20:
+    if minuteur == 50:
         deplacementx = 10
         deplacementy = 0
-        
-    
-def detruiremot():
-    canvas2.delete(mot1)
-    canvas2.delete(mot2)
-    canvas2.delete(mot3)
-    canvas2.delete(mot4)
-    canvas2.delete(mot5)
-        
-
 
 
 def nouvellepomme():
@@ -365,64 +358,64 @@ def pommeMagique():
     xPM=randrange(10,480,10)
     yPM=randrange(10,480,10)
     pommeM=canvas2.create_oval(xPM,yPM,xPM+10,yPM+10,fill="yellow")
-    if x == 100 and y == 100:
+    if xPM == 100 and yPM == 100:
         pommeM.delete()
         pommeMagique()
-    if x == 200 and y == 200:
+    if xPM == 200 and yPM == 200:
         pommeM.delete()
         pommeMagique()
-    if x == 100 and y == 150:
+    if xPM == 100 and yPM == 150:
         pommeM.delete()
         pommeMagique()
-    if x == 100 and y == 400:
+    if xPM == 100 and yPM == 400:
         pommeM.delete()
         pommeMagique()
-    if x == 200 and y == 300:
+    if xPM == 200 and yPM == 300:
         pommeM.delete()
         pommeMagique()
-    if x == 50 and y == 500:
+    if xPM == 50 and yPM == 500:
         pommeM.delete()
         pommeMagique()
-    if x == 300 and y == 500:
+    if xPM == 300 and yPM == 500:
         pommeM.delete()
         pommeMagique()
-    if x == 175 and y == 450:
+    if xPM == 175 and yPM == 450:
         pommeM.delete()
         pommeMagique()
-    if x == 450 and y == 500:
+    if xPM == 450 and yPM == 500:
         pommeM.delete()
         pommeMagique()
-    if x == 275 and y == 325:
+    if xPM == 275 and yPM == 325:
         pommeM.delete()
         pommeMagique()
-    if x == 375 and y == 250:
+    if xPM == 375 and yPM == 250:
         pommeM.delete()
         pommeMagique()
-    if x == 0 and y == 50:
+    if xPM == 0 and yPM == 50:
         pommeM.delete()
         pommeMagique()
-    if x == 450 and y == 0:
+    if xPM == 450 and yPM == 0:
         pommeM.delete()
         pommeMagique()
-    if x == 230 and y == 225:
+    if xPM == 230 and yPM == 225:
         pommeM.delete()
         pommeMagique()
-    if x == 230 and y == 400:
+    if xPM == 230 and yPM == 400:
         pommeM.delete()
         pommeMagique()
-    if x == 150 and y == 300:
+    if xPM == 150 and yPM == 300:
         pommeM.delete()
         pommeMagique()
-    if x == 250 and y == 0:
+    if xPM == 250 and yPM == 0:
         pommeM.delete()
         pommeMagique()
-    if x == 275 and y == 150:
+    if xPM == 275 and yPM == 150:
         pommeM.delete()
         pommeMagique()
-    if x == 425 and y == 250:
+    if xPM == 425 and yPM == 250:
         pommeM.delete()
         pommeMagique()
-    if x == 250 and y == 50:
+    if xPM == 250 and yPM == 50:
         pommeM.delete()
         pommeMagique()
 
@@ -437,28 +430,49 @@ def findujeu():
         canvas2.create_text(250,250,anchor=CENTER,font="Arial 16",text="Perdu !",fill="red")
         deplacementx=0
         deplacementy=0
+        if choixmode == 1:
+            scorefe.delete(scoretext)
+            scoretext2=scorefe.create_text(36,18,anchor=CENTER,font="Arial 16",text=0,fill="green")
+        
     if serpeninitial[1]==0:
         canvas2.create_text(250,250,anchor=CENTER,font="Arial 16",text="Perdu !",fill="red")
         deplacementx=0
         deplacementy=0
+        if choixmode == 1:
+            scorefe.delete(scoretext)
+            scoretext2=scorefe.create_text(36,18,anchor=CENTER,font="Arial 16",text=0,fill="green")
+        
     if serpeninitial[2]==500:
         canvas2.create_text(250,250,anchor=CENTER,font="Arial 16",text="Perdu !",fill="red")
         deplacementx=0
         deplacementy=0
+        if choixmode == 1:
+            scorefe.delete(scoretext)
+            scoretext2=scorefe.create_text(36,18,anchor=CENTER,font="Arial 16",text=0,fill="green")
+        
     if serpeninitial[3]==500:
         canvas2.create_text(250,250,anchor=CENTER,font="Arial 16",text="Perdu !",fill="red")
         deplacementx=0
         deplacementy=0
+        if choixmode == 1:
+            scorefe.delete(scoretext)
+            scoretext2=scorefe.create_text(36,18,anchor=CENTER,font="Arial 16",text=0,fill="green")
+        
     if choixmode == 1:
         if temps == 0:
             canvas2.create_text(250,250,anchor=CENTER,font="Arial 16",text="Perdu !",fill="red")
             deplacementx=0
             deplacementy=0
             fin = 0
+            
     if serpeninitial==serpencoord:
-        canvas2.create_text(250,250,anchor=CENTER,font="Arial 16",text="Perdu !",fill="red") #TEST MORDRE LA QUEUE
+        canvas2.create_text(250,250,anchor=CENTER,font="Arial 16",text="Perdu !",fill="red") 
         deplacementx=0
         deplacementy=0
+        if choixmode == 1:
+            scorefe.delete(scoretext)
+            scoretext2=scorefe.create_text(36,18,anchor=CENTER,font="Arial 16",text=0,fill="green")
+        
     
 
 def findujeuLaby():
@@ -481,11 +495,11 @@ def findujeuLaby():
         canvas2.create_text(250,250,anchor=CENTER,font="Arial 16",text="Perdu !",fill="red")
         deplacementx=0
         deplacementy=0
-    if serpeninitial[0] == 100 and (serpeninitial[1]-5 > 100 and serpeninitial[1]+5 < 200):
+    if serpeninitial[0] == 100 and (serpeninitial[1]-5 > 90 and serpeninitial[1]+5 < 200):
         canvas2.create_text(250,250,anchor=CENTER,font="Arial 16",text="Perdu !",fill="red")
         deplacementx=0
         deplacementy=0
-    if serpeninitial[0] == 200 and (serpeninitial[1]-5 > 50 and serpeninitial[1]+5 < 200):
+    if serpeninitial[0] == 200 and (serpeninitial[1]-5 > 40 and serpeninitial[1]+5 < 200):
         canvas2.create_text(250,250,anchor=CENTER,font="Arial 16",text="Perdu !",fill="red")
         deplacementx=0
         deplacementy=0
@@ -501,11 +515,11 @@ def findujeuLaby():
         canvas2.create_text(250,250,anchor=CENTER,font="Arial 16",text="Perdu !",fill="red")
         deplacementx=0
         deplacementy=0
-    if serpeninitial[0] == 50 and (serpeninitial[1]-5 > 350 and serpeninitial[1] < 500):
+    if serpeninitial[0] == 50 and (serpeninitial[1]-5 > 340 and serpeninitial[1] < 500):
         canvas2.create_text(250,250,anchor=CENTER,font="Arial 16",text="Perdu !",fill="red")
         deplacementx=0
         deplacementy=0
-    if serpeninitial[0] == 300 and (serpeninitial[1]-5 > 450 and serpeninitial[1] < 500):
+    if serpeninitial[0] == 300 and (serpeninitial[1]-5 > 440 and serpeninitial[1] < 500):
         canvas2.create_text(250,250,anchor=CENTER,font="Arial 16",text="Perdu !",fill="red")
         deplacementx=0
         deplacementy=0
@@ -513,15 +527,15 @@ def findujeuLaby():
         canvas2.create_text(250,250,anchor=CENTER,font="Arial 16",text="Perdu !",fill="red")
         deplacementx=0
         deplacementy=0
-    if serpeninitial[0] == 450 and (serpeninitial[1]-5 > 300 and serpeninitial[1] < 500):
+    if serpeninitial[0] == 450 and (serpeninitial[1]-5 > 290 and serpeninitial[1] < 500):
         canvas2.create_text(250,250,anchor=CENTER,font="Arial 16",text="Perdu !",fill="red")
         deplacementx=0
         deplacementy=0
-    if (serpeninitial[0]-5 > 275 and serpeninitial[0]+5 < 400) and serpeninitial[1]+5 == 325:
+    if (serpeninitial[0]-5 > 260 and serpeninitial[0]+5 < 400) and serpeninitial[1]+5 == 325:
         canvas2.create_text(250,250,anchor=CENTER,font="Arial 16",text="Perdu !",fill="red")
         deplacementx=0
         deplacementy=0
-    if serpeninitial[0]+5 == 375 and (serpeninitial[1]-5 > 100 and serpeninitial[1]+5 < 250):
+    if serpeninitial[0]+5 == 375 and (serpeninitial[1]-5 > 90 and serpeninitial[1]+5 < 250):
         canvas2.create_text(250,250,anchor=CENTER,font="Arial 16",text="Perdu !",fill="red")
         deplacementx=0
         deplacementy=0
@@ -533,15 +547,15 @@ def findujeuLaby():
         canvas2.create_text(250,250,anchor=CENTER,font="Arial 16",text="Perdu !",fill="red")
         deplacementx=0
         deplacementy=0
-    if (serpeninitial[0]-5 > 230 and serpeninitial[0]+5 < 340) and serpeninitial[1]+5 == 225:
+    if (serpeninitial[0]-5 > 220 and serpeninitial[0]+5 < 340) and serpeninitial[1]+5 == 225:
         canvas2.create_text(250,250,anchor=CENTER,font="Arial 16",text="Perdu !",fill="red")
         deplacementx=0
         deplacementy=0
-    if serpeninitial[0] == 230 and (serpeninitial[1]-5 > 325 and serpeninitial[1] < 400):
+    if serpeninitial[0] == 230 and (serpeninitial[1]-5 > 310 and serpeninitial[1] < 400):
         canvas2.create_text(250,250,anchor=CENTER,font="Arial 16",text="Perdu !",fill="red")
         deplacementx=0
         deplacementy=0
-    if serpeninitial[0] == 150 and (serpeninitial[1]-5 > 225 and serpeninitial[1] < 300):
+    if serpeninitial[0] == 150 and (serpeninitial[1]-5 > 210 and serpeninitial[1] < 300):
         canvas2.create_text(250,250,anchor=CENTER,font="Arial 16",text="Perdu !",fill="red")
         deplacementx=0
         deplacementy=0
@@ -549,11 +563,11 @@ def findujeuLaby():
         canvas2.create_text(250,250,anchor=CENTER,font="Arial 16",text="Perdu !",fill="red")
         deplacementx=0
         deplacementy=0
-    if (serpeninitial[0]-5 > 275 and serpeninitial[0] < 325) and serpeninitial[1] == 150:
+    if (serpeninitial[0]-5 > 260 and serpeninitial[0] < 325) and serpeninitial[1] == 150:
         canvas2.create_text(250,250,anchor=CENTER,font="Arial 16",text="Perdu !",fill="red")
         deplacementx=0
         deplacementy=0
-    if (serpeninitial[0]-5 > 425 and serpeninitial[0] < 500) and serpeninitial[1] == 250:
+    if (serpeninitial[0]-5 > 410 and serpeninitial[0] < 500) and serpeninitial[1] == 250:
         canvas2.create_text(250,250,anchor=CENTER,font="Arial 16",text="Perdu !",fill="red")
         deplacementx=0
         deplacementy=0
@@ -1048,7 +1062,6 @@ def ouvrirMusique():
     retourmenu.pack(padx=10, pady=10)
     canvas7.pack()
 
-
 def ouvrirControles():
     global retourmenu2
     global canvas8
@@ -1061,7 +1074,7 @@ def ouvrirControles():
     fenetre.title('PARAMETRE DES CONTRÔLES')
     canvas1.destroy()
     canvas8 = Canvas(fenetre, width=400, height=400, bg="Purple")
-    texte2 = canvas8.create_text(225, 50, text="Choisir les contrôles pour jouer", font="Arial 20 roman", fill="BLACK") 
+    texte2 = canvas8.create_text(175, 50, text="Choisir les contrôles", font="Arial 20 roman", fill="BLACK") 
     bouton1 = Button(canvas8, text="fleches directionnelles",width=20, command=choixdestouches1, fg="Black")
     bouton2 = Button(canvas8, text="touches Z/S/Q/D", width=20, command=choixdestouches2, fg="Black")
     bouton1.pack(padx=100, pady=100)
@@ -1099,7 +1112,12 @@ deplacementy=0
 
 minuteur = 0
 
+
 menu()
+
+
+
+
 
 
 
