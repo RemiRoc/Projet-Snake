@@ -23,9 +23,10 @@ def menu ():
     global valeurbouton
     fenetre.title('LE MENU')
     canvas1 = Canvas(fenetre, width=600, height=600, bg = "White")
-    photo2 = PhotoImage(file="interface sanke 2.png")
-    canvas1.create_image(300,300, anchor=NW, image=photo2)
+    photo2 = PhotoImage(file="interface snake 2.png")
+    canvas1.create_image(300,300, anchor= CENTER, image=photo2)
     canvas1.pack()
+    
     Frame1 = Frame(canvas1, width = 10, height=10, borderwidth=2, relief=GROOVE, bg="GREEN")
     Frame1.pack(padx=250,pady=225)
     Frame2 = Frame(Frame1, width = 10, height=10, borderwidth=2, relief=GROOVE, bg="GREEN")
@@ -40,7 +41,7 @@ def menu ():
     option.pack(padx=10, pady=10)
     quitter=Button(Frame4, text="QUITTER", width=10, command=afficherMessage, fg="Black", cursor="pirate")
     quitter.pack(padx=10, pady=10)
-
+    
 def retourselection():
     jouer.destroy()
     canvas1.destroy()
