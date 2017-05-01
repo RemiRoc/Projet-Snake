@@ -764,6 +764,7 @@ def ouvrirMode():
     global Frame5
     global jouerretour
     global jouer
+    Frame1.pack(padx=180,pady=225)
     jouer.destroy()
     jouerretour=Button(Frame2, text="PLAY", width=10,command=retourselection, fg="Black")
     jouerretour.pack(padx=10, pady=10)
@@ -1013,7 +1014,7 @@ def retouroption():
     Frame2.destroy()
     Frame3.destroy()
     Frame4.destroy()
-    Frame5.destroy()
+    Frame6.destroy()
     menu()
 
 def ouvrirOption():
@@ -1025,6 +1026,7 @@ def ouvrirOption():
     global Frame6
     global option
     global optionretour
+    Frame1.pack(padx=220,pady=225)
     option.destroy()
     optionretour=Button(Frame3, text="OPTION", width=10,command=retouroption, fg="Black")
     optionretour.pack()
@@ -1082,8 +1084,6 @@ def afficherMessage():
     if askyesno('ATTENTION', 'Êtes-vous sûr de vouloir faire ça?'):
         fenetre.destroy()
     
-        
-
 #PROGRAMME DE L'INTERFACE DU MENU
 fenetre = Tk()
 fenetre.title('LE MENU')
@@ -1106,12 +1106,4 @@ deplacementy=0
 
 minuteur = 0
 
-
 menu()
-
-
-
-
-
-
-
