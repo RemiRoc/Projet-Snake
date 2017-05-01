@@ -23,7 +23,7 @@ def menu ():
     global valeurbouton
     fenetre.title('LE MENU')
     canvas1 = Canvas(fenetre, width=600, height=600, bg = "White")
-    photo2 = PhotoImage(file="Serpent n°3.png")
+    photo2 = PhotoImage(file="interface sanke 2.png")
     canvas1.create_image(300,300, anchor=NW, image=photo2)
     canvas1.pack()
     Frame1 = Frame(canvas1, width = 10, height=10, borderwidth=2, relief=GROOVE, bg="GREEN")
