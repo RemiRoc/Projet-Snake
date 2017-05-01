@@ -23,30 +23,23 @@ def menu ():
     global valeurbouton
     fenetre.title('LE MENU')
     canvas1 = Canvas(fenetre, width=600, height=600, bg = "White")
+    photo2 = PhotoImage(file="Serpent n°3.png")
+    canvas1.create_image(300,300, anchor=NW, image=photo2)
+    canvas1.pack()
     Frame1 = Frame(canvas1, width = 10, height=10, borderwidth=2, relief=GROOVE, bg="GREEN")
-    Frame1.pack(padx=330,pady=270)
+    Frame1.pack(padx=250,pady=225)
     Frame2 = Frame(Frame1, width = 10, height=10, borderwidth=2, relief=GROOVE, bg="GREEN")
     Frame2.pack()
     Frame3 = Frame(Frame1, width=10, height=10, borderwidth=2, relief=GROOVE, bg="GREEN")
     Frame3.pack()
     Frame4 = Frame(Frame1, width=10, height=10, borderwidth=2, relief=GROOVE, bg="GREEN")
     Frame4.pack()
-    texte = canvas1.create_text(550, 50, text="iSnake", font="Arial 30 roman", fill="BLACK")
-    canvas1.pack()
     jouer=Button(Frame2, text="PLAY", width=10,command=ouvrirMode, fg="Black")
     jouer.pack(padx=10, pady=10)
     option=Button(Frame3, text="OPTION", width=10,command=ouvrirOption, fg="Black")
     option.pack(padx=10, pady=10)
     quitter=Button(Frame4, text="QUITTER", width=10, command=afficherMessage, fg="Black", cursor="pirate")
     quitter.pack(padx=10, pady=10)
-
-
-    photo2 = PhotoImage(file="Serpent n°3.png")
-    photo3 = PhotoImage(file="Serpent n°8.png")
-
-    canvas1.create_image(-100,0, anchor=NW, image=photo2)
-    canvas1.create_image(525,300, anchor=NW, image=photo3)
-    canvas1.pack()
 
 def retourselection():
     jouer.destroy()
