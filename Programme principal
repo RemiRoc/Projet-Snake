@@ -1,3 +1,4 @@
+
 from tkinter import*
 from tkinter.filedialog import*
 from tkinter.messagebox import*
@@ -5,11 +6,10 @@ from random import randrange
 
 def menu ():
     #--------------------------------------------------------------------------------------------------------
-    #Description: INTERFACE DU MENU
-    #Entrée: Cette fonction a ete appeller pour afficher le menu du jeu
-    #Sortie: Apelle les fonctions ouvrirMode, ouvrirOption et afficherMessage
+    #Description:   Interface Du Menu                                                                         
+    #Entrée:    Cette fonction a ete appelée pour afficher le menu du jeu                                     
+    #Sortie: Appelles les fontions ouvrirMode, ouvrirOption et afficherMessage                                
     #--------------------------------------------------------------------------------------------------------
-
     global canvas1
     global Frame1
     global Frame2
@@ -26,7 +26,6 @@ def menu ():
     photo2 = PhotoImage(file="interface snake 2.png")
     canvas1.create_image(300,300, anchor= CENTER, image=photo2)
     canvas1.pack()
-    
     Frame1 = Frame(canvas1, width = 10, height=10, borderwidth=2, relief=GROOVE, bg="GREEN")
     Frame1.pack(padx=250,pady=225)
     Frame2 = Frame(Frame1, width = 10, height=10, borderwidth=2, relief=GROOVE, bg="GREEN")
@@ -41,8 +40,13 @@ def menu ():
     option.pack(padx=10, pady=10)
     quitter=Button(Frame4, text="QUITTER", width=10, command=afficherMessage, fg="Black", cursor="pirate")
     quitter.pack(padx=10, pady=10)
-    
+
 def retourselection():
+   #--------------------------------------------------------------------------------------------------------
+   #Description: Retour Selection du mode de jeu                                                            
+   #Entrée: On appuie sur le bouton Menu                                                                   
+   #Sortie: Ferme le jeu et renvoie sur le canvas du menu                                                   
+   #--------------------------------------------------------------------------------------------------------
     jouer.destroy()
     canvas1.destroy()
     Frame1.destroy()
@@ -53,16 +57,31 @@ def retourselection():
     menu()
 
 def retourselection2():
+   #--------------------------------------------------------------------------------------------------------
+   #Description: Retour Selection du mode de jeu                                                            
+   # Entrée: On appuie sur le bouton Menu                                                                   
+   #Sortie: Ferme les musiques et renvoie sur le canvas du menu                                              
+   #--------------------------------------------------------------------------------------------------------
     retourmenu.destroy()
     canvas7.destroy()
     menu()
 
 def retourselection3():
+   #--------------------------------------------------------------------------------------------------------
+   #Description: Retour Selection du mode de jeu                                                           
+   #Entrée: On appuie sur le bouton Menu                                                                   
+   #Sortie: Ferme les options controles et renvoie sur le canvas du menu                                    
+   #--------------------------------------------------------------------------------------------------------
     retourmenu2.destroy()
     canvas8.destroy()
     menu()
 
 def retourselection4():
+   #--------------------------------------------------------------------------------------------------------
+   #Description: Retour Selection du mode de jeu                                                            
+   #Entrée: On appuie sur le bouton Menu                                                                    
+   #Sortie: Ferme le mode de jeu LABY et renvoie sur le canvas du menu                                       
+   #--------------------------------------------------------------------------------------------------------
     retourmenu3.destroy()
     canvas1.destroy()
     Frame1.destroy()
@@ -71,8 +90,13 @@ def retourselection4():
     Frame4.destroy()
     Frame6.destroy()
     menu()
-    
+
 def retourmenu():
+    #--------------------------------------------------------------------------------------------------------
+    #Description: Retourne au Menu de départ
+    #Entrée:  On appuie sur le bouton Menu                                                                   
+    #Sortie:  Détruit le Canvas du jeu , et réouvre la fonction Menu                                        
+    #--------------------------------------------------------------------------------------------------------
     global score
     global serpeninitial
     global repositionnement
@@ -87,7 +111,9 @@ def retourmenu():
     global Frame4
     global Frame5
     global Frame6
-    
+    global bloc
+    global minuteur
+
     canvas1.destroy()
     canvas2.destroy()
     Frame1.destroy()
@@ -96,6 +122,8 @@ def retourmenu():
     Frame4.destroy()
     Frame5.destroy()
     quitter.destroy()
+    if choixmode == 2:
+        bloc = bloc + 1
     if choixmode != 2:
         Frame6.destroy()
     scorefe.destroy()
@@ -107,9 +135,15 @@ def retourmenu():
     scoretext=0
     score=-10
     pommeavaler=0
+    minuteur = 0
     menu()
 
 def decompte():
+    #--------------------------------------------------------------------------------------------------------
+    #Description: Affiche " Attention , 3 , 2 , 1 , Go ! " sur le canvas du jeu avant le départ du serpent   
+    #Entrée:                                                                                                 
+    #Sortie:                                                                                                 
+    #--------------------------------------------------------------------------------------------------------
     global minuteur
     global mot1
     global mot2
@@ -147,11 +181,14 @@ def decompte():
         canvas2.after(1000,decompte)
 
     if minuteur == 50:
-        deplacementx = 10
-        deplacementy = 0
-
+        touche()
 
 def nouvellepomme():
+    #--------------------------------------------------------------------------------------------------------
+    #Description: Créé une nouvelle pomme pour le serpent lorsque la précédente est mangée Ou se situe sur un mur du labyrinthe 
+    #Entrée: Detecte lorsque la pomme précédente est mangée / sur un mur 
+    #Sortie: Créée une nouvelle pomme 
+    #--------------------------------------------------------------------------------------------------------
     global pommeavaler
     global x
     global y
@@ -161,69 +198,129 @@ def nouvellepomme():
         y=randrange(10,480,10)
         pomme=canvas2.create_oval(x,y,x+10,y+10,fill="red")
         pommeavaler=0
-        if x == 100 and y == 100:
-            pomme.delete()
-            nouvellepomme()
-        if x == 200 and y == 200:
-            pomme.delete()
-            nouvellepomme()
-        if x == 100 and y == 150:
-            pomme.delete()
-            nouvellepomme()
-        if x == 100 and y == 400:
-            pomme.delete()
-            nouvellepomme()
-        if x == 200 and y == 300:
-            pomme.delete()
-            nouvellepomme()
-        if x == 50 and y == 500:
-            pomme.delete()
-            nouvellepomme()
-        if x == 300 and y == 500:
-            pomme.delete()
-            nouvellepomme()
-        if x == 175 and y == 450:
-            pomme.delete()
-            nouvellepomme()
-        if x == 450 and y == 500:
-            pomme.delete()
-            nouvellepomme()
-        if x == 275 and y == 325:
-            pomme.delete()
-            nouvellepomme()
-        if x == 375 and y == 250:
-            pomme.delete()
-            nouvellepomme()
-        if x == 0 and y == 50:
-            pomme.delete()
-            nouvellepomme()
-        if x == 450 and y == 0:
-            pomme.delete()
-            nouvellepomme()
-        if x == 230 and y == 225:
-            pomme.delete()
-            nouvellepomme()
-        if x == 230 and y == 400:
-            pomme.delete()
-            nouvellepomme()
-        if x == 150 and y == 300:
-            pomme.delete()
-            nouvellepomme()
-        if x == 250 and y == 0:
-            pomme.delete()
-            nouvellepomme()
-        if x == 275 and y == 150:
-            pomme.delete()
-            nouvellepomme()
-        if x == 425 and y == 250:
-            pomme.delete()
-            nouvellepomme()
-        if x == 250 and y == 50:
-            pomme.delete()
-            nouvellepomme()
-
+        if choixmode == 2:
+            if (x == 100 and y == 100) or (x == 100 and y == 110) or (x == 100 and y == 120) or (x == 100 and y == 130) or (x == 100 and y == 140) or (x == 100 and y == 150) or (x == 100 and y == 160) or (x == 100 and y == 170) or (x == 100 and y == 180) or (x == 100 and y == 190) or (x == 100 and y == 200):
+                canvas2.delete(pomme)
+                x=randrange(10,480,10)
+                y=randrange(10,480,10)
+                pomme=canvas2.create_oval(x,y,x+10,y+10,fill="red")
+            if (x == 200 and y == 200) or (x == 200 and y == 190) or (x == 200 and y == 180) or (x == 200 and y == 170) or (x == 200 and y == 160) or (x == 200 and y == 150) or (x == 200 and y == 140) or (x == 200 and y == 130) or (x == 200 and y == 120) or (x == 200 and y == 110) or (x == 200 and y == 100) or (x == 200 and y == 90) or (x == 200 and y == 80) or (x == 200 and y == 70) or (x == 200 and y == 60) or (x == 200 and y == 50) or (x == 200 and y == 40) or (x == 200 and y == 30) or (x == 200 and y == 20) or (x == 200 and y == 10):
+                canvas2.delete(pomme)
+                x=randrange(10,480,10)
+                y=randrange(10,480,10)
+                pomme=canvas2.create_oval(x,y,x+10,y+10,fill="red")
+            if (x == 100 and y == 150) or (x == 90 and y == 150) or (x == 80 and y == 150) or (x == 70 and y == 150) or (x == 60 and y == 150) or (x == 50 and y == 150) or (x == 40 and y == 150) or (x == 30 and y == 150) or (x == 20 and y == 150) or (x == 10 and y == 150):
+                canvas2.delete(pomme)
+                x=randrange(10,480,10)
+                y=randrange(10,480,10)
+                pomme=canvas2.create_oval(x,y,x+10,y+10,fill="red")
+            if y == 400:
+                canvas2.delete(pomme)
+                x=randrange(10,480,10)
+                y=randrange(10,480,10)
+                pomme=canvas2.create_oval(x,y,x+10,y+10,fill="red") 
+            if y == 300:
+                canvas2.delete(pomme)
+                x=randrange(10,480,10)
+                y=randrange(10,480,10)
+                pomme=canvas2.create_oval(x,y,x+10,y+10,fill="red")
+            if (x == 50 and y == 500) or (x == 50 and y == 490) or (x == 50 and y == 480) or (x == 50 and y == 470) or (x == 50 and y == 460) or (x == 50 and y == 450) or (xPM == 50 and yPM == 440) or (xPM == 50 and y == 430) or (x == 50 and y == 420) or (x == 50 and y == 410) or (x == 50 and y == 400) or (x == 50 and y == 390) or (x == 50 and y == 380) or (x == 50 and y == 370) or (x == 50 and y == 360) or (x == 50 and y == 350):
+                canvas2.delete(pomme)
+                x=randrange(10,480,10)
+                y=randrange(10,480,10)
+                pomme=canvas2.create_oval(x,y,x+10,y+10,fill="red")
+            if (x == 300 and y == 500) or (x == 300 and y == 490) or (x == 300 and y == 480) or (x == 300 and y == 470) or (x == 300 and y == 460) or (x == 300 and y == 450):
+                canvas2.delete(pomme)
+                x=randrange(10,480,10)
+                y=randrange(10,480,10)
+                pomme=canvas2.create_oval(x,y,x+10,y+10,fill="red")
+            if (x == 175 and y == 450) or (x == 175 and y == 440) or (x == 175 and y == 430) or (x == 175 and y == 420) or (x == 175 and y == 410) or (x == 175 and y == 400):
+                canvas2.delete(pomme)
+                x=randrange(10,480,10)
+                y=randrange(10,480,10)
+                pomme=canvas2.create_oval(x,y,x+10,y+10,fill="red")
+            if x == 450:
+                canvas2.delete(pomme)
+                x=randrange(10,480,10)
+                y=randrange(10,480,10)
+                pomme=canvas2.create_oval(x,y,x+10,y+10,fill="red")
+            if (x == 280 and y == 325) or (x == 290 and y == 325) or (x == 300 and y == 325) or (x == 310 and y == 325) or (x == 320 and y == 325) or (x == 330 and y == 325) or (xPM == 340 and yPM == 325) or (x == 350 and y == 325) or (x == 360 and y == 325) or (x == 370 and y == 325) or (x == 380 and y == 325) or (x == 390 and y == 325) or (x == 400 and y == 325): 
+                canvas2.delete(pomme)
+                x=randrange(10,480,10)
+                y=randrange(10,480,10)
+                pomme=canvas2.create_oval(x,y,x+10,y+10,fill="red")
+            if (x == 375 and y == 250) or (x == 375 and y == 240) or (x == 375 and y == 230) or (x == 375 and y == 220) or (x == 375 and y == 210) or (x == 375 and y == 200) or (xPM == 375 and yPM == 190) or (x == 375 and y == 180) or (x == 375 and y == 170) or (x == 375 and y == 160) or (x == 375 and y == 150) or (x == 375 and y == 140) or (x == 375 and y == 130) or (x == 375 and y == 120) or (x == 375 and y == 110) or (x == 375 and y == 100):
+                canvas2.delete(pomme)
+                x=randrange(10,480,10)
+                y=randrange(10,480,10)
+                pomme=canvas2.create_oval(x,y,x+10,y+10,fill="red")
+            if y == 50:
+                canvas2.delete(pomme)
+                x=randrange(10,480,10)
+                y=randrange(10,480,10)
+                pomme=canvas2.create_oval(x,y,x+10,y+10,fill="red")
+            if (xPM == 230 and y == 225) or (x == 240 and y == 225) or (x == 250 and y == 225) or (x == 260 and y == 225) or (x == 270 and y == 225) or (x == 280 and y == 225) or (x == 290 and y == 225) or (x == 300 and y == 225) or (x == 310 and y == 225) or (x == 320 and y == 225) or (x == 330 and y == 225) or (x == 340 and y == 225):
+                canvas2.delete(pomme)
+                x=randrange(10,480,10)
+                y=randrange(10,480,10)
+                pomme=canvas2.create_oval(x,y,x+10,y+10,fill="red")
+            if (x == 230 and y == 400) or (x == 230 and y == 390) or (x == 230 and y == 380) or (x == 230 and y == 370) or (x == 230 and y == 360) or (x == 230 and y == 350) or (x == 230 and y == 340) or (x == 230 and y == 330):
+                canvas2.delete(pomme)
+                x=randrange(10,480,10)
+                y=randrange(10,480,10)
+                pomme=canvas2.create_oval(x,y,x+10,y+10,fill="red")
+            if (x == 150 and y == 300) or (x == 150 and y == 290) or (x == 150 and y == 280) or (x == 150 and y == 270) or (x == 150 and y == 260) or (x == 150 and y == 250) or (x == 150 and y == 240) or (x == 150 and y == 230):
+                canvas2.delete(pomme)
+                x=randrange(10,480,10)
+                y=randrange(10,480,10)
+                pomme=canvas2.create_oval(x,y,x+10,y+10,fill="red")
+            if (x == 250 and y == 0) or (x == 250 and y == 10) or (x == 250 and y == 20) or (x == 250 and y == 30) or (x == 250 and y == 40) or (x == 250 and y == 50) or (x == 250 and yPM == 60) or (x == 250 and y == 70) or (x == 250 and y == 80) or (x == 250 and y == 90) or (x == 250 and y == 100):
+                canvas2.delete(pomme)
+                x=randrange(10,480,10)
+                y=randrange(10,480,10)
+                pomme=canvas2.create_oval(x,y,x+10,y+10,fill="red")
+            if (x == 280 and y == 150) or (x == 290 and y == 150) or (x == 300 and y == 150) or (x == 310 and y == 150) or (x == 320 and y == 150):
+                canvas2.delete(pomme)
+                x=randrange(10,480,10)
+                y=randrange(10,480,10)
+                pomme=canvas2.create_oval(x,y,x+10,y+10,fill="red")
+            if (x == 430 and y == 250) or (x == 440 and y == 250) or (x == 450 and y == 250) or (x == 460 and y == 250) or (x == 470 and y == 250) or (x == 480 and y == 250) or (x == 490 and y == 250) or (x == 500 and y == 250):
+                canvas2.delete(pomme)
+                x=randrange(10,480,10)
+                y=randrange(10,480,10)
+                pomme=canvas2.create_oval(x,y,x+10,y+10,fill="red")
+            if (x == 10 and y == 490) or (x == 20 and y == 490) or (x == 30 and y == 490) or (x == 40 and y == 490) or (x == 50 and y == 490):
+                canvas2.delete(pomme)
+                x=randrange(10,480,10)
+                y=randrange(10,480,10)
+                pomme=canvas2.create_oval(x,y,x+10,y+10,fill="red")
+            if (x == 10 and y == 490) or (x == 20 and y == 480) or (x == 30 and y == 480) or (x == 40 and y == 480) or (x == 50 and y == 480):
+                canvas2.delete(pomme)
+                x=randrange(10,480,10)
+                y=randrange(10,480,10)
+                pomme=canvas2.create_oval(x,y,x+10,y+10,fill="red")
+            if (x == 10 and y == 470) or (x == 20 and y == 470) or (x == 30 and y == 470) or (x == 40 and y == 470) or (x == 50 and y == 470):
+                canvas2.delete(pomme)
+                x=randrange(10,480,10)
+                y=randrange(10,480,10)
+                pomme=canvas2.create_oval(x,y,x+10,y+10,fill="red")
+            if (x == 10 and y == 460) or (x == 20 and y == 460) or (x == 30 and y == 460) or (x == 40 and y == 460) or (x == 50 and y == 460):
+                canvas2.delete(pomme)
+                x=randrange(10,480,10)
+                y=randrange(10,480,10)
+                pomme=canvas2.create_oval(x,y,x+10,y+10,fill="red")
+            if (x == 10 and y == 450) or (x == 20 and y == 450) or (x == 30 and y == 450) or (x == 40 and y == 450) or (x == 50 and y == 450):
+                canvas2.delete(pomme)
+                x=randrange(10,480,10)
+                y=randrange(10,480,10)
+                pomme=canvas2.create_oval(x,y,x+10,y+10,fill="red")
 
 def gauche(event):
+    #--------------------------------------------------------------------------------------------------------
+    #Description: Déplace le serpent vers la gauche
+    #Entrée: La touche clavier fleche de gauche
+    #Sortie: Le serpent se déplace vers la gauche
+    #--------------------------------------------------------------------------------------------------------
     global deplacementx
     global deplacementy
     global direction
@@ -231,7 +328,13 @@ def gauche(event):
         deplacementx=-10
         deplacementy=0
         direction=1
+        
 def droite(event):
+    #--------------------------------------------------------------------------------------------------------
+    #Description: Déplace le serpent vers la droite
+    #Entrée: La touche clavier fleche de droite
+    #Sortie: Le serpent se déplace vers la droite
+    #--------------------------------------------------------------------------------------------------------
     global deplacementx
     global deplacementy
     global direction
@@ -239,7 +342,13 @@ def droite(event):
         deplacementx=10
         deplacementy=0
         direction=2
+
 def haut(event):
+    #--------------------------------------------------------------------------------------------------------
+    #Description: Déplace le serpent vers le haut 
+    #Entrée: La touche clavier fleche du haut 
+    #Sortie: Le serpent se déplace vers le haut 
+    #--------------------------------------------------------------------------------------------------------
     global deplacementx
     global deplacementy
     global direction
@@ -247,7 +356,13 @@ def haut(event):
         deplacementx=0
         deplacementy=-10
         direction=3
+
 def bas(event):
+    #--------------------------------------------------------------------------------------------------------
+    #Description: Déplace le serpent vers le bas
+    #Entrée: La touche clavier fleche du bas
+    #Sortie: Le serpent se déplace vers le bas 
+    #--------------------------------------------------------------------------------------------------------
     global deplacementx
     global deplacementy
     global direction
@@ -257,6 +372,11 @@ def bas(event):
         direction=4
 
 def tempsrestant():
+    #--------------------------------------------------------------------------------------------------------
+    #Description: Minuteur qui permet de savoir le temps qu'il reste en mode Run 
+    #Entrée: Pas d'entrée
+    #Sortie: Affiche un minuteur, lorsqu'il arrive a 0 , la partie se termine
+    #--------------------------------------------------------------------------------------------------------
     global temps
     global scoretext
     global choixmode
@@ -269,11 +389,17 @@ def tempsrestant():
         scoretext=scorefe.create_text(36,18,anchor=CENTER,font="Arial 16",text=str(temps),fill="green")
 
 def scoreaff():
-    global score
+    #--------------------------------------------------------------------------------------------------------
+    #Description: Affichage du score  / Du temps restant 
+    #Entrée: Le serpent mange une pomme
+    #Sortie: Rajoute 10 points par pomme , ou rajoute du temps dans le mode run
+    #--------------------------------------------------------------------------------------------------------
+    global score           
     global scoretext
     global choixmode
     global temps
     global tempspomme
+
     if choixmode == 0 or choixmode == 2:
         score = score + 10
         scorefe.delete(scoretext)
@@ -283,8 +409,12 @@ def scoreaff():
         scorefe.delete(scoretext)
         scoretext=scorefe.create_text(36,18,anchor=CENTER,font="Arial 16",text=str(temps),fill="green")
 
-    
 def scoreaffLaby():
+    #--------------------------------------------------------------------------------------------------------
+    #Description: Ajoute le score de la pomme magique
+    #Entrée: Le serpent mange la pomme jaune
+    #Sortie: Le score est augmenté de 20 points 
+    #--------------------------------------------------------------------------------------------------------
     global score
     global scoretext
     score = score + 20
@@ -292,131 +422,172 @@ def scoreaffLaby():
     scoretext=scorefe.create_text(36,18,anchor=CENTER,font="Arial 16",text=str(score),fill="green")
 
 def construirelabyrinthe():
+    #--------------------------------------------------------------------------------------------------------
+    #Description: Construit les murs du labyrinthe  
+    #Entrée: Lorsque l'on choisi le mode de jeu Labyrinthe
+    #Sortie: Créé des murs dans le canvas de jeu 
+    #--------------------------------------------------------------------------------------------------------
     global xPM
     global yPM
-    global bloc1
-    global bloc2
-    global bloc3
-    global bloc4
-    global bloc5
-    global bloc6
-    global bloc7
-    global bloc8
-    global bloc9
-    global bloc10
-    global bloc11
-    global bloc12
-    global bloc13
-    global bloc14
-    global bloc15
-    global bloc16
-    global bloc17
-    global bloc18
-    global bloc19
-    global bloc20
-    global bloc21
+    global blocA
+    global blocB
+    global blocC
+    global blocD
+    global blocE
+    global blocF
+    global blocG
+    global blocH
+    global blocI
+    global blocJ
+    global blocK
+    global blocL
+    global blocM
+    global blocN
+    global blocO
+    global blocP
+    global blocQ
+    global blocR
+    global blocS
+    global blocT
+    global bloc
 
+    bloc = 0
     
-    
-    bloc1=canvas2.create_line(100,100,100,200, width=5)
-    bloc2=canvas2.create_line(200,200,200,50, width=5)
-    bloc3=canvas2.create_line(100,150,0,150, width=5)
-    bloc4=canvas2.create_line(100,400,400,400, width=5)
-    bloc5=canvas2.create_line(200,300,0,300, width=5)
-    bloc6=canvas2.create_line(50,500,50,350, width=5)
-    bloc7=canvas2.create_line(300,500,300,450, width=5)
-    bloc8=canvas2.create_line(175,450,175,400, width=5)
-    bloc9=canvas2.create_line(450,500,450,300, width=5)
-    bloc10=canvas2.create_line(275,325,400,325, width=5)
-    bloc11=canvas2.create_line(375,250,375,100, width=5)
-    bloc12=canvas2.create_line(0,50,150,50, width=5)
-    bloc13=canvas2.create_line(450,0,450,200, width=5)
-    bloc14=canvas2.create_line(230,225,340,225, width=5)
-    
-    bloc16=canvas2.create_line(230,400,230,325, width=5)
-    bloc17=canvas2.create_line(150,300,150,225, width=5)
-    bloc18=canvas2.create_line(250,0,250,100, width=5)
-    bloc19=canvas2.create_line(275,150,325,150, width=5)
-    bloc20=canvas2.create_line(425,250,500,250, width=5)
-    bloc21=canvas2.create_line(250,50,450,50, width=5)
+    if bloc == 0:
+        blocA=canvas2.create_line(100,100,100,200, width=5)
+        blocB=canvas2.create_line(200,200,200,50, width=5)
+        blocC=canvas2.create_line(100,150,0,150, width=5)
+        blocD=canvas2.create_line(100,400,400,400, width=5)
+        blocE=canvas2.create_line(200,300,0,300, width=5)
+        blocF=canvas2.create_line(50,500,50,350, width=5)
+        blocG=canvas2.create_line(300,500,300,450, width=5)
+        blocH=canvas2.create_line(175,450,175,400, width=5)
+        blocI=canvas2.create_line(450,500,450,300, width=5)
+        blocJ=canvas2.create_line(275,325,400,325, width=5)
+        blocK=canvas2.create_line(375,250,375,100, width=5)
+        blocL=canvas2.create_line(0,50,150,50, width=5)
+        blocM=canvas2.create_line(450,0,450,200, width=5)
+        blocN=canvas2.create_line(230,225,340,225, width=5)
+        blocO=canvas2.create_line(230,400,230,325, width=5)
+        blocP=canvas2.create_line(150,300,150,225, width=5)
+        blocQ=canvas2.create_line(250,0,250,100, width=5)
+        blocR=canvas2.create_line(275,150,325,150, width=5)
+        blocS=canvas2.create_line(425,250,500,250, width=5)
+        blocT=canvas2.create_line(250,50,450,50, width=5)
 
-    pommeSurprise = canvas2.create_oval(25,475,35,485,fill="Blue")
+    if bloc == 1:
+        canvas2.destroy(blocA)
+        canvas2.destroy(blocB)
+        canvas2.destroy(blocC)
+        canvas2.destroy(blocD)
+        canvas2.destroy(blocE)
+        canvas2.destroy(blocG)
+        canvas2.destroy(blocH)
+        canvas2.destroy(blocI)
+        canvas2.destroy(blocK)
+        canvas2.destroy(blocL)
+        canvas2.destroy(blocM)
+        canvas2.destroy(blocN)
+        canvas2.destroy(blocO)
+        canvas2.destroy(blocP)
+        canvas2.destroy(blocQ)
+        canvas2.destroy(blocR)
+        canvas2.destroy(blocS)
+        canvas2.destroy(blocT)
+        bloc = 0
 
+    pommeSurprise = canvas2.create_oval(25,475,35,485,fill="Blue")    
     
     
-
 def pommeMagique():
+    #--------------------------------------------------------------------------------------------------------
+    #Description: Créé une pomme qui donne +20 points au sertpent
+    #Entrée: Lorsque la précédente est mangée ou en début de partie 
+    #Sortie: créé une pomme jaune qui donne +20 point et deux carreaux en plus pour le serpent 
+    #--------------------------------------------------------------------------------------------------------
     global pommeM
     global xPM
     global yPM
     xPM=randrange(10,480,10)
     yPM=randrange(10,480,10)
     pommeM=canvas2.create_oval(xPM,yPM,xPM+10,yPM+10,fill="yellow")
-    if xPM == 100 and yPM == 100:
-        pommeM.delete()
+    if (xPM == 100 and yPM == 100) or (xPM == 100 and yPM == 110) or (xPM == 100 and yPM == 120) or (xPM == 100 and yPM == 130) or (xPM == 100 and yPM == 140) or (xPM == 100 and yPM == 150) or (xPM == 100 and yPM == 160) or (xPM == 100 and yPM == 170) or (xPM == 100 and yPM == 180) or (xPM == 100 and yPM == 190) or (xPM == 100 and yPM == 200):
+        canvas2.delete(pommeM)
         pommeMagique()
-    if xPM == 200 and yPM == 200:
-        pommeM.delete()
+    if (xPM == 200 and yPM == 200) or (xPM == 200 and yPM == 190) or (xPM == 200 and yPM == 180) or (xPM == 200 and yPM == 170) or (xPM == 200 and yPM == 160) or (xPM == 200 and yPM == 150) or (xPM == 200 and yPM == 140) or (xPM == 200 and yPM == 130) or (xPM == 200 and yPM == 120) or (xPM == 200 and yPM == 110) or (xPM == 200 and yPM == 100) or (xPM == 200 and yPM == 90) or (xPM == 200 and yPM == 80) or (xPM == 200 and yPM == 70) or (xPM == 200 and yPM == 60) or (xPM == 200 and yPM == 50) or (xPM == 200 and yPM == 40) or (xPM == 200 and yPM == 30) or (xPM == 200 and yPM == 20) or (xPM == 200 and yPM == 10):
+        canvas2.delete(pommeM)
         pommeMagique()
-    if xPM == 100 and yPM == 150:
-        pommeM.delete()
+    if (xPM == 100 and yPM == 150) or (xPM == 90 and yPM == 150) or (xPM == 80 and yPM == 150) or (xPM == 70 and yPM == 150) or (xPM == 60 and yPM == 150) or (xPM == 50 and yPM == 150) or (xPM == 40 and yPM == 150) or (xPM == 30 and yPM == 150) or (xPM == 20 and yPM == 150) or (xPM == 10 and yPM == 150):
+        canvas2.delete(pommeM)
         pommeMagique()
-    if xPM == 100 and yPM == 400:
-        pommeM.delete()
+    if yPM == 400:
+        canvas2.delete(pommeM)
         pommeMagique()
-    if xPM == 200 and yPM == 300:
-        pommeM.delete()
+    if yPM == 300:
+        canvas2.delete(pommeM)
         pommeMagique()
-    if xPM == 50 and yPM == 500:
-        pommeM.delete()
+    if (xPM == 50 and yPM == 500) or (xPM == 50 and yPM == 490) or (xPM == 50 and yPM == 480) or (xPM == 50 and yPM == 470) or (xPM == 50 and yPM == 460) or (xPM == 50 and yPM == 450) or (xPM == 50 and yPM == 440) or (xPM == 50 and yPM == 430) or (xPM == 50 and yPM == 420) or (xPM == 50 and yPM == 410) or (xPM == 50 and yPM == 400) or (xPM == 50 and yPM == 390) or (xPM == 50 and yPM == 380) or (xPM == 50 and yPM == 370) or (xPM == 50 and yPM == 360) or (xPM == 50 and yPM == 350):
+        canvas2.delete(pommeM)
         pommeMagique()
-    if xPM == 300 and yPM == 500:
-        pommeM.delete()
+    if (xPM == 300 and yPM == 500) or (xPM == 300 and yPM == 490) or (xPM == 300 and yPM == 480) or (xPM == 300 and yPM == 470) or (xPM == 300 and yPM == 460) or (xPM == 300 and yPM == 450):
+        canvas2.delete(pommeM)
         pommeMagique()
-    if xPM == 175 and yPM == 450:
-        pommeM.delete()
+    if (xPM == 175 and yPM == 450) or (xPM == 175 and yPM == 440) or (xPM == 175 and yPM == 430) or (xPM == 175 and yPM == 420) or (xPM == 175 and yPM == 410) or (xPM == 175 and yPM == 400):
+        canvas2.delete(pommeM)
         pommeMagique()
-    if xPM == 450 and yPM == 500:
-        pommeM.delete()
+    if xPM == 450:
+        canvas2.delete(pommeM)
         pommeMagique()
-    if xPM == 275 and yPM == 325:
-        pommeM.delete()
+    if (xPM == 280 and yPM == 325) or (xPM == 290 and yPM == 325) or (xPM == 300 and yPM == 325) or (xPM == 310 and yPM == 325) or (xPM == 320 and yPM == 325) or (xPM == 330 and yPM == 325) or (xPM == 340 and yPM == 325) or (xPM == 350 and yPM == 325) or (xPM == 360 and yPM == 325) or (xPM == 370 and yPM == 325) or (xPM == 380 and yPM == 325) or (xPM == 390 and yPM == 325) or (xPM == 400 and yPM == 325): 
+        canvas2.delete(pommeM)
         pommeMagique()
-    if xPM == 375 and yPM == 250:
-        pommeM.delete()
+    if (xPM == 375 and yPM == 250) or (xPM == 375 and yPM == 240) or (xPM == 375 and yPM == 230) or (xPM == 375 and yPM == 220) or (xPM == 375 and yPM == 210) or (xPM == 375 and yPM == 200) or (xPM == 375 and yPM == 190) or (xPM == 375 and yPM == 180) or (xPM == 375 and yPM == 170) or (xPM == 375 and yPM == 160) or (xPM == 375 and yPM == 150) or (xPM == 375 and yPM == 140) or (xPM == 375 and yPM == 130) or (xPM == 375 and yPM == 120) or (xPM == 375 and yPM == 110) or (xPM == 375 and yPM == 100):
+        canvas2.delete(pommeM)
         pommeMagique()
-    if xPM == 0 and yPM == 50:
-        pommeM.delete()
+    if yPM == 50:
+        canvas2.delete(pommeM)
         pommeMagique()
-    if xPM == 450 and yPM == 0:
-        pommeM.delete()
+    if (xPM == 230 and yPM == 225) or (xPM == 240 and yPM == 225) or (xPM == 250 and yPM == 225) or (xPM == 260 and yPM == 225) or (xPM == 270 and yPM == 225) or (xPM == 280 and yPM == 225) or (xPM == 290 and yPM == 225) or (xPM == 300 and yPM == 225) or (xPM == 310 and yPM == 225) or (xPM == 320 and yPM == 225) or (xPM == 330 and yPM == 225) or (xPM == 340 and yPM == 225):
+        canvas2.delete(pommeM)
         pommeMagique()
-    if xPM == 230 and yPM == 225:
-        pommeM.delete()
+    if (xPM == 230 and yPM == 400) or (xPM == 230 and yPM == 390) or (xPM == 230 and yPM == 380) or (xPM == 230 and yPM == 370) or (xPM == 230 and yPM == 360) or (xPM == 230 and yPM == 350) or (xPM == 230 and yPM == 340) or (xPM == 230 and yPM == 330):
+        canvas2.delete(pommeM)
         pommeMagique()
-    if xPM == 230 and yPM == 400:
-        pommeM.delete()
+    if (xPM == 150 and yPM == 300) or (xPM == 150 and yPM == 290) or (xPM == 150 and yPM == 280) or (xPM == 150 and yPM == 270) or (xPM == 150 and yPM == 260) or (xPM == 150 and yPM == 250) or (xPM == 150 and yPM == 240) or (xPM == 150 and yPM == 230):
+        canvas2.delete(pommeM)
         pommeMagique()
-    if xPM == 150 and yPM == 300:
-        pommeM.delete()
+    if (xPM == 250 and yPM == 0) or (xPM == 250 and yPM == 10) or (xPM == 250 and yPM == 20) or (xPM == 250 and yPM == 30) or (xPM == 250 and yPM == 40) or (xPM == 250 and yPM == 50) or (xPM == 250 and yPM == 60) or (xPM == 250 and yPM == 70) or (xPM == 250 and yPM == 80) or (xPM == 250 and yPM == 90) or (xPM == 250 and yPM == 100):
+        canvas2.delete(pommeM)
         pommeMagique()
-    if xPM == 250 and yPM == 0:
-        pommeM.delete()
+    if (xPM == 280 and yPM == 150) or (xPM == 290 and yPM == 150) or (xPM == 300 and yPM == 150) or (xPM == 310 and yPM == 150) or (xPM == 320 and yPM == 150):
+        canvas2.delete(pommeM)
         pommeMagique()
-    if xPM == 275 and yPM == 150:
-        pommeM.delete()
+    if (xPM == 430 and yPM == 250) or (xPM == 440 and yPM == 250) or (xPM == 450 and yPM == 250) or (xPM == 460 and yPM == 250) or (xPM == 470 and yPM == 250) or (xPM == 480 and yPM == 250) or (xPM == 490 and yPM == 250) or (xPM == 500 and yPM == 250):
+        canvas2.delete(pommeM)
         pommeMagique()
-    if xPM == 425 and yPM == 250:
-        pommeM.delete()
-        pommeMagique()
-    if xPM == 250 and yPM == 50:
-        pommeM.delete()
-        pommeMagique()
+    if (xPM == 10 and yPM == 490) or (xPM == 20 and yPM == 490) or (xPM == 30 and yPM == 490) or (xPM == 40 and yPM == 490) or (xPM == 50 and yPM == 490):
+        canvas2.delete(pommeM)
+        nouvellepomme()
+    if (xPM == 10 and yPM == 490) or (xPM == 20 and yPM == 480) or (xPM == 30 and yPM == 480) or (xPM == 40 and yPM == 480) or (xPM == 50 and yPM == 480):
+        canvas2.delete(pommeM)
+        nouvellepomme()
+    if (xPM == 10 and yPM == 470) or (xPM == 20 and yPM == 470) or (xPM == 30 and yPM == 470) or (xPM == 40 and yPM == 470) or (xPM == 50 and yPM == 470):
+        canvas2.delete(pommeM)
+        nouvellepomme()
+    if (xPM == 10 and yPM == 460) or (xPM == 20 and yPM == 460) or (xPM == 30 and yPM == 460) or (xPM == 40 and yPM == 460) or (xPM == 50 and yPM == 460):
+        canvas2.delete(pommeM)
+        nouvellepomme()
+    if (xPM == 10 and yPM == 450) or (xPM == 20 and yPM == 450) or (xPM == 30 and yPM == 450) or (xPM == 40 and yPM == 450) or (xPM == 50 and yPM == 450):
+        canvas2.delete(pommeM)
+        nouvellepomme()
 
-    
-    
 
 def findujeu():
+    #--------------------------------------------------------------------------------------------------------
+    #Description: Termine la partie
+    #Entrée: Lorsque le serpent touche un mur ou se mord la queue
+    #Sortie: Termine la partie et Affiche "Perdu !" au centre de l'écran
+    #--------------------------------------------------------------------------------------------------------
     global deplacementx
     global deplacementy
     global fin
@@ -427,7 +598,7 @@ def findujeu():
         if choixmode == 1:
             scorefe.delete(scoretext)
             scoretext2=scorefe.create_text(36,18,anchor=CENTER,font="Arial 16",text=0,fill="green")
-        
+
     if serpeninitial[1]==0:
         canvas2.create_text(250,250,anchor=CENTER,font="Arial 16",text="Perdu !",fill="red")
         deplacementx=0
@@ -466,10 +637,13 @@ def findujeu():
         if choixmode == 1:
             scorefe.delete(scoretext)
             scoretext2=scorefe.create_text(36,18,anchor=CENTER,font="Arial 16",text=0,fill="green")
-        
-    
 
 def findujeuLaby():
+    #--------------------------------------------------------------------------------------------------------
+    #Description: Termine La partie dans le mode Laby
+    #Entrée: Lorsque le serpent touche un mur du labyrinthe 
+    #Sortie: la partie se termine et la fonction affiche a l'écran : "Perdu !" 
+    #--------------------------------------------------------------------------------------------------------
     global deplacementx
     global deplacementy
     global fin
@@ -574,9 +748,12 @@ def findujeuLaby():
         deplacementx=0
         deplacementy=0
 
-    
-
 def deplacementauto():
+    #--------------------------------------------------------------------------------------------------------
+    #Description: Le serpent se déplace automatiquement dans la direction choisie par le joueur
+    #Entrée: Touches de direction 
+    #Sortie: Le serpent se déplace dans cette direction jusqu'a un autre changement de direction
+    #--------------------------------------------------------------------------------------------------------
     global deplacementx
     global deplacementy
     global x
@@ -589,11 +766,10 @@ def deplacementauto():
     global vitesse
     global boucle
     global pommeM
+    global minuteur
 
     decompte()
-
-
-    if boucle == 15:
+    if minuteur >= 50 and boucle >= 15:
         tempsrestant()
     
     if choixmode == 0 or choixmode == 1:
@@ -601,7 +777,6 @@ def deplacementauto():
     elif choixmode == 2:
         findujeuLaby()
 
-    
     if serpeninitial[0]==x and serpeninitial[1]==y:
         canvas2.delete(pomme)
         scoreaff()
@@ -640,13 +815,15 @@ def deplacementauto():
             serpencoord.append(canvas2.create_rectangle(x1,y1,x2,y2,fill="green"))
             pommeMagique()
             
-        
     i=4
     j=1
     while j<len(serpencoord):
         if j != 1:
             if serpeninitial[0] == serpeninitial[len(serpeninitial)-(i)] and serpeninitial[2] == serpeninitial[len(serpeninitial)-(i-2)] and serpeninitial[1] == serpeninitial[len(serpeninitial)-(i-1)] and serpeninitial[3] == serpeninitial[len(serpeninitial)-(i-3)]:
                canvas2.create_text(250,250,anchor=CENTER,font="Arial 16",text="Perdu !",fill="red")
+               if choixmode == 1:
+                    scorefe.delete(scoretext)
+                    scoretext2=scorefe.create_text(36,18,anchor=CENTER,font="Arial 16",text=0,fill="green")
                deplacementx=0
                deplacementy=0
         serpeninitial[len(serpeninitial)-(i)]=serpeninitial[len(serpeninitial)-(i+4)]
@@ -670,16 +847,30 @@ def deplacementauto():
         canvas2.after(vitesse,deplacementauto)
         boucle = boucle + 1
 
-
 def choixdestouches1():
+    #--------------------------------------------------------------------------------------------------------
+    #Description: Change les controles
+    #Entrée: Value == 1 
+    #Sortie: Change les touches afin de controler le serpent avec les fleches directionnelles
+    #--------------------------------------------------------------------------------------------------------
     global value
     value = 1
 
 def choixdestouches2():
+    #--------------------------------------------------------------------------------------------------------
+    #Description: Change les controles 
+    #Entrée: Value == 2 
+    #Sortie: Change les touches afin de controler le sertpent avec les touches "ZQSD" du clavier
+    #--------------------------------------------------------------------------------------------------------
     global value
     value = 2
 
 def touche():
+    #--------------------------------------------------------------------------------------------------------
+    #Description: Change les controles
+    #Entrée: Bouton ZQSD ou Bouton fleches directionnelles
+    #Sortie: Change la valeur de value afin de changer les touches
+    #--------------------------------------------------------------------------------------------------------
     global value
     if value == 1:
         canvas2.bind_all("<Left>",gauche)
@@ -691,9 +882,13 @@ def touche():
         canvas2.bind_all("<KeyPress-d>",droite)
         canvas2.bind_all("<KeyPress-z>",haut)
         canvas2.bind_all("<KeyPress-s>",bas)
-    
             
 def jeu():
+    #--------------------------------------------------------------------------------------------------------
+    #Description: Affiche le canvas dans lequel va évoluer le serpent 
+    #Entrée: Choix d'un mode de jeu / difficulté 
+    #Sortie: Créé le mode de jeu en question sur un nouveau canvas 
+    #--------------------------------------------------------------------------------------------------------
     global x
     global y
     global xPM
@@ -715,9 +910,9 @@ def jeu():
     global tempspomme
     global choixmode
     global value
-    global xPM
-    global yPM
     global pommeM
+    global deplacementx
+    global deplacementy
 
     
     rejouer=Button(fenetre,width=10,text="Menu",command=retourmenu)
@@ -731,9 +926,6 @@ def jeu():
     
     scoreaff()
 
-    touche()
-
-
     serpencoord=[canvas2.create_rectangle(serpeninitial[0],serpeninitial[1],serpeninitial[2],serpeninitial[3],fill="green")]
 
     x=randrange(10,480,10)
@@ -744,23 +936,22 @@ def jeu():
         xPM=randrange(10,480,10)
         yPM=randrange(10,480,10)
         pommeM=canvas2.create_oval(xPM,yPM,xPM+10,yPM+10,fill="yellow")
+        deplacementx = 0
+        deplacementy = 0
 
         construirelabyrinthe()
-        
+    
     direction=0
-
     boucle=0
 
     deplacementauto()
 
-    
 def ouvrirMode():
     #--------------------------------------------------------------------------------------------------------
     #Description: INTERFACE DES MODES
     #Entrée: Affiche les differents mode de jeu
     #Sortie: Appelle les fonctions retourselection, ouvrirDifficulte, ouvrirDifficulterun et ouvrirLaby
     #--------------------------------------------------------------------------------------------------------
-
     global Frame5
     global jouerretour
     global jouer
@@ -782,19 +973,18 @@ def retourmode():
     jouerretour2.destroy()
     ouvrirMode()
 
-
 def ouvrirDifficulte():
     #--------------------------------------------------------------------------------------------------------
     #Description: INTERFACE DES DIFFICULTES
     #Entrée: Affiche les difficultes des differents mode de jeu
     #Sortie: Appelle les fonctions retourmode, ouvrirHARD, ouvrirSOFT et ouvrirEASY
     #--------------------------------------------------------------------------------------------------------
-
     global Frame6
     global HARD
     global SOFT
     global EASY
     global jouerretour2
+    global choixmode
     Frame5.destroy()
     jouerretour.destroy()
     jouerretour2=Button(Frame2,text="PLAY", width=10, command=retourmode)
@@ -806,7 +996,6 @@ def ouvrirDifficulte():
     HARD = Button(Frame6, text="HARD", width=10, command=ouvrirHARD, fg="Black").pack(side=RIGHT)
     SOFT = Button(Frame6, text="SOFT", width=10, command=ouvrirSOFT, fg="Black").pack(side=RIGHT)
     EASY = Button(Frame6, text="EASY", width=10, command=ouvrirEASY, fg="Black").pack(side=RIGHT)
-
     
 def ouvrirEASY():
     global canvas2
@@ -824,12 +1013,12 @@ def ouvrirEASY():
     ligne3 = canvas2.create_line(500,500,0,500, width = 8)
     ligne4 = canvas2.create_line(500,500,500,0, width = 8)
     canvas2.pack(side=TOP)
-    quitter=Button(fenetre, text="Quitter", width=10, command=fenetre.destroy, fg="Black").pack(side=BOTTOM)
+    quitter=Button(fenetre, text="Quitter", width=10, command=fenetre.destroy, fg="Black")
+    quitter.pack(side=BOTTOM)
     #JEU
     global vitesse
     vitesse=100
     jeu()
-
 
 def ouvrirSOFT():
     global canvas2
@@ -839,7 +1028,6 @@ def ouvrirSOFT():
     #Entrée: Ferme le canvas du menu et ouvre un nouveau canvas avec le jeu
     #Sortie: Lance le jeu en mode normal SOFT
     #--------------------------------------------------------------------------------------------------------
-
     canvas1.destroy()
     fenetre.title('DIFFICULTÉ SOFT')
     canvas2 = Canvas(fenetre, width=500, height=500, bg = "YELLOW")
@@ -848,12 +1036,12 @@ def ouvrirSOFT():
     ligne3 = canvas2.create_line(500,500,0,500, width = 8)
     ligne4 = canvas2.create_line(500,500,500,0, width = 8)
     canvas2.pack(side=TOP)
-    quitter=Button(fenetre, text="Quitter", width=10, command=fenetre.destroy, fg="Black").pack(side=BOTTOM)
+    quitter=Button(fenetre, text="Quitter", width=10, command=fenetre.destroy, fg="Black")
+    quitter.pack(side=BOTTOM)
     #JEU
     global vitesse
     vitesse=50
     jeu()
-
 
 def ouvrirHARD():
     #--------------------------------------------------------------------------------------------------------
@@ -861,7 +1049,6 @@ def ouvrirHARD():
     #Entrée: Ferme le canavs du menu et ouvre un nouveau canvas avec le jeu
     #Sortie: Lance le jeu en mode normal HARD
     #--------------------------------------------------------------------------------------------------------
-
     global canvas2
     global quitter
     canvas1.destroy()
@@ -872,12 +1059,12 @@ def ouvrirHARD():
     ligne3 = canvas2.create_line(500,500,0,500, width = 8)
     ligne4 = canvas2.create_line(500,500,500,0, width = 8)
     canvas2.pack(side=TOP)
-    quitter=Button(fenetre, text="Quitter", width=10, command=fenetre.destroy, fg="Black").pack(side=BOTTOM)
+    quitter=Button(fenetre, text="Quitter", width=10, command=fenetre.destroy, fg="Black")
+    quitter.pack(side=BOTTOM)
     #JEU
     global vitesse
     vitesse=20
     jeu()    
-
 
 def ouvrirDifficulterun():
     #--------------------------------------------------------------------------------------------------------
@@ -885,7 +1072,6 @@ def ouvrirDifficulterun():
     #Entrée: Affiche les difficultes du mode run 
     #Sortie: Appelle les fonctions retourmode, ouvrirHARDrun, ouvrirSOFTrun et ouvrirEASYrun
     #--------------------------------------------------------------------------------------------------------
-
     global Frame6
     global HARD
     global SOFT
@@ -904,14 +1090,12 @@ def ouvrirDifficulterun():
     SOFT = Button(Frame6, text="SOFT", width=10, command=ouvrirSOFTrun, fg="Black").pack(side=RIGHT)
     EASY = Button(Frame6, text="EASY", width=10, command=ouvrirEASYrun, fg="Black").pack(side=RIGHT)
 
-
 def ouvrirEASYrun():
     #--------------------------------------------------------------------------------------------------------
     #Description: INTERFACE DU MODE RUN DIFFICULTÉ EASY
     #Entrée: Ferme le canvas du menu et ouvre un nouveau canvas avec le jeu
     #Sortie: Lance le jeu en mode run EASY
     #--------------------------------------------------------------------------------------------------------
-
     global quitter
     global vitesse
     global canvas2
@@ -930,14 +1114,12 @@ def ouvrirEASYrun():
     tempspomme = 6
     jeu()
 
-
 def ouvrirSOFTrun():
     #--------------------------------------------------------------------------------------------------------
     #Description: INTERFACE DU MODE RUN DIFFICULTÉ SOFT
     #Entrée: Ferme le canvas du menu et ouvre un nouveau canvas avec le jeu
     #Sortie: Lance le jeu en mode run SOFT
     #--------------------------------------------------------------------------------------------------------
-
     global quitter
     global vitesse
     global canvas2
@@ -962,7 +1144,6 @@ def ouvrirHARDrun():
     #Entrée: Ferme le canvas du menu et ouvre un nouveau canvas avec le jeu
     #Sortie: Lance le jeu en mode run HARD
     #--------------------------------------------------------------------------------------------------------
-
     global quitter
     global vitesse
     global canvas2
@@ -980,18 +1161,16 @@ def ouvrirHARDrun():
     vitesse = 50
     tempspomme = 2
     jeu()
-    
+
 def ouvrirLaby():
     #--------------------------------------------------------------------------------------------------------
     #Description: INTERFACE DU MODE LABY
     #Entrée: Ferme le canvas du menu et ouvre un nouveau canvas avec le jeu
     #Sortie: Lance le jeu en mode Laby
     #--------------------------------------------------------------------------------------------------------
-
     global canvas2
     global choixmode
     global quitter
-    
     canvas1.destroy()
     fenetre.title('MODE LABY')
     canvas2 = Canvas(fenetre, width=500, height=500, bg = "Brown")
@@ -1007,14 +1186,21 @@ def ouvrirLaby():
     vitesse=50
     jeu()
 
+
+
 def retouroption():
+    #--------------------------------------------------------------------------------------------------------
+    #Description: Retour au menu
+    #Entrée: Quitte le menu des options
+    #Sortie: Détruit le Canvas des options et reouvre celui du menu 
+    #--------------------------------------------------------------------------------------------------------
     option.destroy()
     canvas1.destroy()
     Frame1.destroy()
     Frame2.destroy()
     Frame3.destroy()
     Frame4.destroy()
-    Frame6.destroy()
+    Frame5.destroy()
     menu()
 
 def ouvrirOption():
@@ -1036,13 +1222,14 @@ def ouvrirOption():
     Button(Frame6, text="Contrôles", width=10, command=ouvrirControles, fg="Black").pack(side=LEFT)
 
 def ouvrirMusique():
-    global retourmenu
-    global canvas7
+   
     #--------------------------------------------------------------------------------------------------------
     #Description: INTERFACE DE L OPTION MUSIQUE
     #Entrée: Ouvre un autre canvas 
     #Sortie: Appelle la fonction retourselection2
     #--------------------------------------------------------------------------------------------------------
+    global retourmenu
+    global canvas7
     fenetre.title('PARAMETRE DE LA MUSIQUE')
     canvas1.destroy()
     canvas7 = Canvas(fenetre, width = 400, height=400, bg="Blue")
@@ -1059,14 +1246,13 @@ def ouvrirMusique():
     canvas7.pack()
 
 def ouvrirControles():
-    global retourmenu2
-    global canvas8
-
     #--------------------------------------------------------------------------------------------------------
     #Description: INTERFACE DE L OPTION CONTROLES
     #Entrée: Ouvre un autre canvas
     #Sortie: Appelle les fonctions choixdestouches1, choixdestouches2 et retourselection3
     #--------------------------------------------------------------------------------------------------------
+    global retourmenu2
+    global canvas8
     fenetre.title('PARAMETRE DES CONTRÔLES')
     canvas1.destroy()
     canvas8 = Canvas(fenetre, width=400, height=400, bg="Purple")
@@ -1079,11 +1265,15 @@ def ouvrirControles():
     retourmenu2.pack(padx=10, pady=10)
     canvas8.pack()
 
-
 def afficherMessage():
+    #--------------------------------------------------------------------------------------------------------
+    #Description: Affiche un message losque l'on quitte le jeu 
+    #Entrée: Clique le bouton quitter
+    #Sortie: Ferme la fenetre
+    #--------------------------------------------------------------------------------------------------------
     if askyesno('ATTENTION', 'Êtes-vous sûr de vouloir faire ça?'):
         fenetre.destroy()
-    
+        
 #PROGRAMME DE L'INTERFACE DU MENU
 fenetre = Tk()
 fenetre.title('LE MENU')
@@ -1107,3 +1297,4 @@ deplacementy=0
 minuteur = 0
 
 menu()
+
